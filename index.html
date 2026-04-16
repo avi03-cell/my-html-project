@@ -15,35 +15,81 @@
     font-family:'Orbitron', sans-serif;
 }
 
-html{
-    scroll-behavior:smooth;
-}
-
 body{
-    background:#05050a;
+    background:#050510;
     color:white;
     overflow-x:hidden;
 }
 
-/* HEADER */
+/* Animated background */
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: linear-gradient(45deg, #ff00cc, #3333ff, #00eaff, #ff6600);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+    opacity:0.12;
+    z-index:-2;
+}
+
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* Floating glow circles */
+.glow{
+    position:fixed;
+    border-radius:50%;
+    filter: blur(100px);
+    z-index:-1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.glow1{
+    width:300px;
+    height:300px;
+    background:#ff00cc;
+    top:10%;
+    left:5%;
+}
+
+.glow2{
+    width:350px;
+    height:350px;
+    background:#3333ff;
+    bottom:10%;
+    right:5%;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-30px);}
+}
+
+/* Navbar */
 header{
-    background: rgba(10,10,20,0.7);
-    backdrop-filter: blur(12px);
-    padding:20px 50px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(15px);
+    padding:20px 40px;
     display:flex;
     justify-content:space-between;
-    align-items:center;
     position:fixed;
     width:100%;
     z-index:1000;
-    box-shadow:0 0 20px rgba(255,0,200,0.3);
+    box-shadow:0 0 20px rgba(255,255,255,0.1);
 }
 
 .logo{
     font-size:1.8rem;
     font-weight:800;
     color:#fff;
-    text-shadow:0 0 10px #ff00cc;
+    text-shadow:0 0 10px #00eaff;
 }
 
 nav{
@@ -58,44 +104,47 @@ nav a{
 }
 
 nav a:hover{
-    color:#ff00cc;
-    text-shadow:0 0 10px #ff00cc;
+    color:#00eaff;
+    text-shadow:0 0 10px #00eaff;
 }
 
-/* HERO */
+/* Hero */
 .hero{
-    height:100vh;
-    background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.7)),
-    url('https://images.unsplash.com/photo-1542751371-adc38448a05e') center/cover;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     flex-direction:column;
     text-align:center;
-    padding:20px;
+    padding:100px 20px;
+    position:relative;
+    background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+    url('https://images.unsplash.com/photo-1542751371-adc38448a05e') center/cover;
 }
 
 .hero h1{
     font-size:4rem;
     margin-bottom:20px;
-    text-shadow:0 0 20px #ff00cc;
-    animation: glow 2s infinite alternate;
+    animation: fadeUp 1.5s ease;
+    text-shadow:0 0 20px #00eaff;
 }
 
 .hero p{
-    font-size:1.2rem;
-    margin-bottom:30px;
     max-width:700px;
-    line-height:1.6;
+    line-height:1.8;
+    margin-bottom:30px;
+    animation: fadeUp 2s ease;
 }
 
-@keyframes glow{
+@keyframes fadeUp{
     from{
-        text-shadow:0 0 10px #ff00cc;
+        opacity:0;
+        transform:translateY(50px);
     }
     to{
-        text-shadow:0 0 25px #3333ff;
+        opacity:1;
+        transform:translateY(0);
     }
 }
 
@@ -103,20 +152,38 @@ nav a:hover{
     padding:15px 35px;
     border:none;
     border-radius:30px;
-    background:linear-gradient(90deg,#ff00cc,#3333ff);
+    background:linear-gradient(90deg,#ff00cc,#00eaff);
     color:white;
     font-size:1rem;
     cursor:pointer;
     transition:0.4s;
-    box-shadow:0 0 15px #ff00cc;
+    box-shadow:0 0 20px #00eaff;
+    position:relative;
+    overflow:hidden;
 }
 
 .btn:hover{
     transform:scale(1.08);
-    box-shadow:0 0 30px #3333ff;
+    box-shadow:0 0 35px #ff00cc;
 }
 
-/* GAMES */
+.btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.2);
+    transform:skewX(-20deg);
+    transition:0.5s;
+}
+
+.btn:hover::before{
+    left:120%;
+}
+
+/* Games section */
 .games{
     padding:100px 50px;
     text-align:center;
@@ -125,27 +192,27 @@ nav a:hover{
 .games h2{
     font-size:2.5rem;
     margin-bottom:50px;
-    text-shadow:0 0 10px #ff00cc;
+    color:#00eaff;
 }
 
 .game-cards{
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     gap:30px;
 }
 
 .card{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter: blur(12px);
-    border:1px solid rgba(255,255,255,0.1);
+    background:rgba(255,255,255,0.06);
+    backdrop-filter: blur(15px);
     border-radius:20px;
     overflow:hidden;
     transition:0.4s;
-    box-shadow:0 0 20px rgba(255,0,204,0.2);
+    box-shadow:0 0 15px rgba(0,234,255,0.2);
+    animation: fadeUp 1s ease;
 }
 
 .card:hover{
-    transform:translateY(-10px);
+    transform:translateY(-12px) scale(1.03);
     box-shadow:0 0 30px #ff00cc;
 }
 
@@ -161,21 +228,23 @@ nav a:hover{
 
 .card h3{
     margin-bottom:10px;
-    font-size:1.3rem;
+    color:#ff00cc;
 }
 
-/* FOOTER */
+/* Footer */
 footer{
-    background:#111;
-    padding:30px;
+    background:rgba(0,0,0,0.5);
     text-align:center;
+    padding:25px;
     margin-top:50px;
-    color:#aaa;
+    backdrop-filter: blur(10px);
 }
 </style>
 </head>
-
 <body>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
 
 <header>
     <div class="logo">🎮 DevOps Gaming</div>
@@ -188,8 +257,8 @@ footer{
 </header>
 
 <section class="hero">
-    <h1>ENTER THE GAMING WORLD</h1>
-    <p>Play the hottest games, join elite tournaments, climb the leaderboard, and dominate the battlefield.</p>
+    <h1>LEVEL UP YOUR GAME</h1>
+    <p>Join tournaments, play with legends, and rise to the top of the global leaderboard.</p>
     <button class="btn">Start Playing</button>
 </section>
 
@@ -201,7 +270,7 @@ footer{
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-dZ8u_dXZ4-AhDROEpQNiXqh9VNbGH1B9g&s">
             <div class="card-content">
                 <h3>Cyber Punk</h3>
-                <p>Futuristic world full of chaos and technology.</p>
+                <p>Future warfare and high-tech action.</p>
             </div>
         </div>
 
@@ -209,7 +278,7 @@ footer{
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQArqxxEpNqjtKl2pD6sjpTQkowFzMmgt-HrA&s">
             <div class="card-content">
                 <h3>Need For Speed</h3>
-                <p>High-octane street racing experience.</p>
+                <p>Adrenaline-fueled racing madness.</p>
             </div>
         </div>
 
@@ -217,7 +286,7 @@ footer{
             <img src="https://upload.wikimedia.org/wikipedia/en/6/63/Battleground_Mobile_India.webp">
             <div class="card-content">
                 <h3>BGMI</h3>
-                <p>Survive. Loot. Conquer the battleground.</p>
+                <p>Battle royale domination begins here.</p>
             </div>
         </div>
 
@@ -225,14 +294,14 @@ footer{
             <img src="https://woodmart.xtemos.com/games/wp-content/uploads/sites/14/2023/06/w-vgs-adventure-red-dead-redemption-2.jpg">
             <div class="card-content">
                 <h3>RDR 2</h3>
-                <p>Live the legendary cowboy journey.</p>
+                <p>Ride into the legendary wild west.</p>
             </div>
         </div>
     </div>
 </section>
 
 <footer>
-    © 2026 DevOps Gaming | Designed for Gamers 🎮
+    © 2026 DevOps Gaming | Designed with ❤️ for gamers
 </footer>
 
 </body>
