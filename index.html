@@ -1,182 +1,239 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>DevOps Gamer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevOps Gaming</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Orbitron', sans-serif;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Orbitron', sans-serif;
+}
 
-        body {
-            background: #0a0a0f;
-            color: #fff;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        header {
-            background: linear-gradient(90deg, #ff00cc, #3333ff);
-            padding: 20px;
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            box-shadow: 0 0 15px #ff00cc;
-        }
+body{
+    background:#05050a;
+    color:white;
+    overflow-x:hidden;
+}
 
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            padding: 15px;
-            background: #111;
-        }
+/* HEADER */
+header{
+    background: rgba(10,10,20,0.7);
+    backdrop-filter: blur(12px);
+    padding:20px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:fixed;
+    width:100%;
+    z-index:1000;
+    box-shadow:0 0 20px rgba(255,0,200,0.3);
+}
 
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            transition: 0.3s;
-        }
+.logo{
+    font-size:1.8rem;
+    font-weight:800;
+    color:#fff;
+    text-shadow:0 0 10px #ff00cc;
+}
 
-        nav a:hover {
-            color: #ff00cc;
-        }
+nav{
+    display:flex;
+    gap:30px;
+}
 
-        .hero {
-            height: 80vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            background: url('https://images.unsplash.com/photo-1605902711622-cfb43c4437d1') no-repeat center/cover;
-        }
+nav a{
+    color:white;
+    text-decoration:none;
+    transition:0.3s;
+}
 
-        .hero h1 {
-            font-size: 3rem;
-            text-shadow: 0 0 10px #ff00cc;
-        }
+nav a:hover{
+    color:#ff00cc;
+    text-shadow:0 0 10px #ff00cc;
+}
 
-        .hero p {
-            margin: 20px 0;
-            font-size: 1.2rem;
-        }
+/* HERO */
+.hero{
+    height:100vh;
+    background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.7)),
+    url('https://images.unsplash.com/photo-1542751371-adc38448a05e') center/cover;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    padding:20px;
+}
 
-        .btn {
-            padding: 12px 25px;
-            background: #ff00cc;
-            border: none;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
+.hero h1{
+    font-size:4rem;
+    margin-bottom:20px;
+    text-shadow:0 0 20px #ff00cc;
+    animation: glow 2s infinite alternate;
+}
 
-        .btn:hover {
-            background: #3333ff;
-        }
+.hero p{
+    font-size:1.2rem;
+    margin-bottom:30px;
+    max-width:700px;
+    line-height:1.6;
+}
 
-        .games {
-            padding: 50px;
-            text-align: center;
-        }
+@keyframes glow{
+    from{
+        text-shadow:0 0 10px #ff00cc;
+    }
+    to{
+        text-shadow:0 0 25px #3333ff;
+    }
+}
 
-        .games h2 {
-            margin-bottom: 30px;
-        }
+.btn{
+    padding:15px 35px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(90deg,#ff00cc,#3333ff);
+    color:white;
+    font-size:1rem;
+    cursor:pointer;
+    transition:0.4s;
+    box-shadow:0 0 15px #ff00cc;
+}
 
-        .game-cards {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+.btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 30px #3333ff;
+}
 
-        .card {
-            background: #111;
-            padding: 20px;
-            border-radius: 10px;
-            width: 250px;
-            transition: 0.3s;
-            box-shadow: 0 0 10px rgba(255,0,204,0.3);
-        }
+/* GAMES */
+.games{
+    padding:100px 50px;
+    text-align:center;
+}
 
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #ff00cc;
-        }
+.games h2{
+    font-size:2.5rem;
+    margin-bottom:50px;
+    text-shadow:0 0 10px #ff00cc;
+}
 
-        .card img {
-            width: 100%;
-            border-radius: 10px;
-        }
+.game-cards{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    gap:30px;
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #111;
-            margin-top: 30px;
-        }
-    </style>
+.card{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;
+    overflow:hidden;
+    transition:0.4s;
+    box-shadow:0 0 20px rgba(255,0,204,0.2);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 30px #ff00cc;
+}
+
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:20px;
+}
+
+.card h3{
+    margin-bottom:10px;
+    font-size:1.3rem;
+}
+
+/* FOOTER */
+footer{
+    background:#111;
+    padding:30px;
+    text-align:center;
+    margin-top:50px;
+    color:#aaa;
+}
+</style>
 </head>
 
 <body>
 
-<header>🎮 DevOps Gaming</header>
-
-<nav>
-    <a href="#">Home</a>
-    <a href="#">Games</a>
-    <a href="#">Tournaments</a>
-    <a href="#">Contact</a>
-</nav>
+<header>
+    <div class="logo">🎮 DevOps Gaming</div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Games</a>
+        <a href="#">Tournaments</a>
+        <a href="#">Contact</a>
+    </nav>
+</header>
 
 <section class="hero">
-    <h1>Enter The Gaming World</h1>
-    <p>Play. Compete. RankPush. Conquer.</p>
+    <h1>ENTER THE GAMING WORLD</h1>
+    <p>Play the hottest games, join elite tournaments, climb the leaderboard, and dominate the battlefield.</p>
     <button class="btn">Start Playing</button>
 </section>
 
 <section class="games">
-    <h2> Popular Games</h2>
+    <h2>🔥 Popular Games</h2>
 
     <div class="game-cards">
         <div class="card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-dZ8u_dXZ4-AhDROEpQNiXqh9VNbGH1B9g&s" alt="Game">
-            <h3>Cyber Punk</h3>
-            <p>Futuristic war game</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt-dZ8u_dXZ4-AhDROEpQNiXqh9VNbGH1B9g&s">
+            <div class="card-content">
+                <h3>Cyber Punk</h3>
+                <p>Futuristic world full of chaos and technology.</p>
+            </div>
         </div>
 
         <div class="card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQArqxxEpNqjtKl2pD6sjpTQkowFzMmgt-HrA&s" alt="Game">
-            <h3>Need For Speed</h3>
-            <p>Speed Racer</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQArqxxEpNqjtKl2pD6sjpTQkowFzMmgt-HrA&s">
+            <div class="card-content">
+                <h3>Need For Speed</h3>
+                <p>High-octane street racing experience.</p>
+            </div>
         </div>
 
         <div class="card">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/63/Battleground_Mobile_India.webp/250px-Battleground_Mobile_India.webp.png
-" alt="Game">
-            <h3>Battle Ground Mobile India</h3>
-            <p>Survive the apocalypse of campers</p>
+            <img src="https://upload.wikimedia.org/wikipedia/en/6/63/Battleground_Mobile_India.webp">
+            <div class="card-content">
+                <h3>BGMI</h3>
+                <p>Survive. Loot. Conquer the battleground.</p>
+            </div>
         </div>
-         <div class="card">
-            <img src="https://woodmart.xtemos.com/games/wp-content/uploads/sites/14/2023/06/w-vgs-adventure-red-dead-redemption-2.jpg" alt="Game">
-            <h3>Red Dead Redemption 2</h3>
-            <p>Just a Cowboy Living in a Western World</p>
+
+        <div class="card">
+            <img src="https://woodmart.xtemos.com/games/wp-content/uploads/sites/14/2023/06/w-vgs-adventure-red-dead-redemption-2.jpg">
+            <div class="card-content">
+                <h3>RDR 2</h3>
+                <p>Live the legendary cowboy journey.</p>
+            </div>
         </div>
     </div>
 </section>
 
 <footer>
-    © 2026 GameZone | All Rights Reserved
+    © 2026 DevOps Gaming | Designed for Gamers 🎮
 </footer>
 
 </body>
+</html>
