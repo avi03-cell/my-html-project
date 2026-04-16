@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>DevOps Gaming | Next-Gen Arena</title>
+    <title>DevOps Gaming | Next-Gen Multiverse Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (free icons) for catchy replacements -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -22,7 +21,6 @@
             scroll-behavior: smooth;
         }
 
-        /* animated particles overlay */
         .particles {
             position: fixed;
             top: 0;
@@ -31,10 +29,8 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
-            background: repeating-linear-gradient(transparent, transparent 2px, rgba(0, 212, 255, 0.02) 2px, rgba(0, 212, 255, 0.02) 4px);
         }
 
-        /* dynamic glow header */
         header {
             position: fixed;
             width: 100%;
@@ -42,12 +38,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 40px;
-            background: rgba(2, 12, 22, 0.65);
+            padding: 14px 40px;
+            background: rgba(2, 12, 22, 0.85);
             backdrop-filter: blur(16px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.25);
-            transition: all 0.3s;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00e0ff, #3a86ff, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
         }
 
         .logo i {
@@ -55,53 +61,39 @@
             color: #00e0ff;
             text-shadow: 0 0 8px cyan;
         }
-        .logo {
-            font-size: 1.7rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00e0ff, #3a86ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
-            letter-spacing: 1px;
-        }
 
         nav a {
             color: #cfecff;
             text-decoration: none;
-            margin-left: 28px;
+            margin-left: 24px;
             font-weight: 500;
             transition: 0.2s;
-            position: relative;
+            font-size: 0.85rem;
         }
 
         nav a i {
             margin-right: 6px;
-            font-size: 0.9rem;
         }
 
         nav a:hover {
             color: #00f2ff;
-            text-shadow: 0 0 6px #00d4ff;
+            text-shadow: 0 0 6px cyan;
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: #00d4ff;
-            transition: 0.25s;
-            box-shadow: 0 0 6px cyan;
+        .page {
+            display: none;
+            animation: fadeInPage 0.5s ease-out;
         }
 
-        nav a:hover::after {
-            width: 100%;
+        .page.active-page {
+            display: block;
         }
 
-        /* hero section with dynamic particles and parallax */
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .hero {
             min-height: 100vh;
             display: flex;
@@ -110,20 +102,18 @@
             align-items: center;
             text-align: center;
             padding: 120px 20px 80px;
-            position: relative;
             background: radial-gradient(ellipse at 50% 30%, rgba(0, 30, 50, 0.5), rgba(0, 0, 0, 0.7));
         }
 
         .hero h1 {
             font-size: 5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #ffffff, #00e0ff, #3a86ff);
-            background-size: 200% auto;
+            background: linear-gradient(135deg, #ffffff, #00e0ff, #3a86ff, #ff66cc);
+            background-size: 300% auto;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: textShine 3s linear infinite;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            animation: textShine 4s linear infinite, floatUpDown 2.5s ease-in-out infinite;
         }
 
         @keyframes textShine {
@@ -131,13 +121,9 @@
             100% { background-position: 200% 50%; }
         }
 
-        .hero p {
-            max-width: 680px;
-            font-size: 1.2rem;
-            margin: 25px 0;
-            line-height: 1.8;
-            text-shadow: 0 0 5px rgba(0,0,0,0.5);
-            backdrop-filter: blur(2px);
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
         }
 
         .btn {
@@ -155,40 +141,12 @@
             overflow: hidden;
         }
 
-        .btn i {
-            margin-right: 8px;
-        }
-
         .btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-3px);
             box-shadow: 0 0 28px #00d4ff;
-            background: linear-gradient(95deg, #20c4ff, #2a7aff);
         }
 
-        /* sections */
-        .games-section {
-            padding: 100px 50px 80px;
-            text-align: center;
-        }
-
-        .games-section h2 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            background: linear-gradient(120deg, #caf0ff, #00d4ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-
-        .section-sub {
-            color: #9ac7e7;
-            margin-bottom: 50px;
-            letter-spacing: 1px;
-        }
-
-        /* cards modern grid */
-        .game-cards {
+        .game-cards, .shop-grid, .esports-grid, .hall-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 40px;
@@ -196,534 +154,427 @@
             margin: 0 auto;
         }
 
-        .card {
+        .card, .shop-item, .esports-card, .hall-card {
             background: rgba(12, 25, 45, 0.65);
             backdrop-filter: blur(8px);
             border-radius: 32px;
             overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: all 0.4s;
             border: 1px solid rgba(0, 212, 255, 0.2);
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
-            transform: translateY(0);
+            cursor: pointer;
         }
 
-        .card:hover {
-            transform: translateY(-12px) scale(1.01);
+        .card:hover, .shop-item:hover, .esports-card:hover {
+            transform: translateY(-10px);
             border-color: #00d4ff;
-            box-shadow: 0 25px 40px -12px #00a6ff40;
+            box-shadow: 0 20px 35px -12px #00a6ff80;
         }
 
-        .card img {
+        .card img, .shop-item img {
             width: 100%;
             height: 220px;
             object-fit: cover;
-            transition: transform 0.5s ease;
-            background: #071a2a;
         }
 
-        .card:hover img {
-            transform: scale(1.02);
-        }
-
-        .card-content {
+        .card-content, .shop-content, .esports-content {
             padding: 24px 20px 28px;
         }
 
-        .card h3 {
-            font-size: 1.7rem;
+        .card h3, .shop-item h3 {
+            font-size: 1.5rem;
             color: #00f0ff;
             margin-bottom: 12px;
-            letter-spacing: 1px;
         }
 
-        .card h3 i {
-            margin-right: 10px;
-            font-size: 1.4rem;
-            color: #3affff;
-        }
-
-        .card p {
-            font-size: 0.85rem;
-            opacity: 0.8;
-            margin-bottom: 16px;
-        }
-
-        .game-badge {
-            display: inline-block;
-            background: rgba(0, 212, 255, 0.2);
-            padding: 5px 12px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            color: #7bc9ff;
-        }
-        .game-badge i {
-            margin-right: 5px;
-            font-size: 0.7rem;
-        }
-
-        /* dynamic animation for active card */
-        .card.active-card {
-            animation: cardGlow 0.6s ease forwards;
-        }
-
-        @keyframes cardGlow {
-            0% { box-shadow: 0 0 0 0 #00d4ff; transform: scale(1);}
-            50% { box-shadow: 0 0 0 15px rgba(0,212,255,0.4); transform: scale(1.02);}
-            100% { box-shadow: 0 0 0 0 rgba(0,212,255,0); transform: scale(1);}
-        }
-
-        /* tournament zone */
         .tournament-zone {
             background: radial-gradient(circle at 30% 20%, #041a2c, #010b14);
             margin: 40px 30px 80px;
             border-radius: 70px;
             padding: 60px 20px;
             border: 1px solid rgba(0, 212, 255, 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tournament-zone:before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, cyan, magenta, cyan);
+            opacity: 0.08;
+            animation: rotateGlow 12s linear infinite;
+            top: -50%;
+            left: -50%;
+        }
+
+        @keyframes rotateGlow {
+            100% { transform: rotate(360deg); }
         }
 
         .countdown-box {
-            font-size: 5.5rem;
+            font-size: 4rem;
             font-weight: 800;
-            color: #eefbff;
-            text-shadow: 0 0 20px #00e0ff, 0 0 40px #0077ff;
             background: rgba(0, 0, 0, 0.5);
             display: inline-block;
-            padding: 20px 60px;
+            padding: 20px 50px;
             border-radius: 80px;
-            letter-spacing: 6px;
             backdrop-filter: blur(12px);
             margin: 25px 0;
-            transition: all 0.2s;
-            font-family: monospace;
+            animation: pulseCount 1s infinite alternate;
         }
 
-        .prize-pool {
-            font-size: 1.3rem;
-            background: linear-gradient(90deg, #ffd966, #ffb347);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: bold;
-        }
-        .prize-pool i {
-            margin-right: 6px;
-            color: #ffcc44;
+        @keyframes pulseCount {
+            100% { text-shadow: 0 0 35px cyan; }
         }
 
-        /* modal modern */
+        .rank-list {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 48px;
+            padding: 30px;
+        }
+
+        .rank-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 18px 25px;
+            margin: 12px 0;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 60px;
+            border-left: 4px solid cyan;
+        }
+
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(12px);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            transition: 0.2s;
         }
 
         .modal-content {
             background: linear-gradient(145deg, #0a1f2f, #04121f);
-            padding: 40px 30px;
+            padding: 40px;
             border-radius: 48px;
             text-align: center;
-            width: 360px;
             border: 1px solid #00e0ff;
-            box-shadow: 0 0 60px rgba(0, 212, 255, 0.3);
-            animation: modalPop 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-        }
-
-        @keyframes modalPop {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-content h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #00f2ff;
-        }
-        .modal-content h2 i {
-            margin-right: 10px;
-        }
-
-        .modal-content p {
-            margin: 15px 0;
-        }
-
-        .modal .btn {
-            margin-top: 15px;
-            background: linear-gradient(95deg, #2c7da0, #1f5068);
+            max-width: 400px;
         }
 
         footer {
             text-align: center;
             padding: 35px;
             background: rgba(0, 0, 0, 0.5);
-            font-size: 0.9rem;
             border-top: 1px solid rgba(0, 212, 255, 0.2);
         }
-        footer i {
-            margin: 0 4px;
-            color: #00d4ff;
+
+        @keyframes floatParticle {
+            0% { transform: translateY(0px) translateX(0px); opacity: 0.1; }
+            50% { transform: translateY(-40px) translateX(20px); opacity: 0.6; }
+            100% { transform: translateY(0px) translateX(0px); opacity: 0.1; }
         }
 
-        /* floating glitch effect */
-        .glow-text {
-            animation: floatGlow 3s infinite alternate;
-        }
-
-        @keyframes floatGlow {
-            0% { text-shadow: 0 0 5px #00a6ff; }
-            100% { text-shadow: 0 0 20px #00e0ff, 0 0 5px #00aaff; }
-        }
-
-        /* responsive */
-        @media(max-width: 780px) {
-            .hero h1 { font-size: 2.6rem; }
-            .games-section { padding: 70px 20px; }
-            .countdown-box { font-size: 2.5rem; padding: 15px 25px; letter-spacing: 3px; }
+        @media (max-width: 780px) {
+            .hero h1 { font-size: 2.5rem; }
+            .countdown-box { font-size: 2rem; padding: 15px 25px; }
+            nav a { margin-left: 12px; font-size: 0.7rem; }
             header { padding: 12px 20px; }
-            nav a { margin-left: 16px; font-size: 0.85rem; }
-            .btn { padding: 10px 24px; }
         }
     </style>
 </head>
 <body>
 
-<div class="particles"></div>
+<div class="particles" id="particleContainer"></div>
 
 <header>
     <div class="logo"><i class="fas fa-microchip"></i> DEVOPS GAMING</div>
     <nav>
-        <a href="#hero"><i class="fas fa-home"></i> HOME</a>
-        <a href="#games"><i class="fas fa-gamepad"></i> GAMES</a>
-        <a href="#tournament"><i class="fas fa-trophy"></i> TOURNAMENT</a>
+        <a href="#" data-page="home"><i class="fas fa-home"></i> HOME</a>
+        <a href="#" data-page="games"><i class="fas fa-gamepad"></i> GAMES</a>
+        <a href="#" data-page="leaderboard"><i class="fas fa-chart-line"></i> LEADERBOARD</a>
+        <a href="#" data-page="esports"><i class="fas fa-trophy"></i> ESPORTS</a>
+        <a href="#" data-page="shop"><i class="fas fa-store"></i> SHOP</a>
+        <a href="#" data-page="halloffame"><i class="fas fa-star"></i> HALL OF FAME</a>
+        <a href="#" data-page="support"><i class="fas fa-headset"></i> SUPPORT</a>
     </nav>
 </header>
 
-<section class="hero" id="hero">
-    <h1>ENTER THE ARENA</h1>
-    <p><i class="fas fa-robot"></i> Next-gen competitive gaming. Real-time tournaments, immersive leaderboards, and infinite thrill.</p>
-    <button class="btn" id="dynamicStartBtn"><i class="fas fa-bolt"></i> LAUNCH MATCHMAKING</button>
-</section>
+<!-- PAGE 1: HOME -->
+<div id="home-page" class="page active-page">
+    <section class="hero">
+        <h1>ENTER THE MULTIVERSE</h1>
+        <p><i class="fas fa-robot"></i> Next-gen competitive gaming. Real-time tournaments, exclusive rewards, and infinite dimensions.</p>
+        <button class="btn" id="dynamicStartBtn"><i class="fas fa-bolt"></i> LAUNCH MATCHMAKING</button>
+    </section>
+    <footer><p><i class="fas fa-copyright"></i> 2026 DevOps Gaming — <i class="fas fa-headset"></i> Immerse. Compete. Dominate.</p></footer>
+</div>
 
-<section class="games-section" id="games">
-    <h2><i class="fas fa-fire"></i> FEATURED BATTLES</h2>
-    <div class="section-sub"><i class="fas fa-hand-pointer"></i> tap any card to preview —</div>
-    <div class="game-cards">
-        <!-- Card 1: BGMI -->
-        <div class="card" data-game="BGMI" data-desc="Battlegrounds Mobile India | 100 players intense battle royale">
-            <img src="https://upload.wikimedia.org/wikipedia/en/6/63/Battleground_Mobile_India.webp" alt="BGMI">
-            <div class="card-content">
-                <h3><i class="fas fa-crosshairs"></i> BGMI</h3>
-                <p>Erangel awaits. Squad up & claim chicken dinner.</p>
-                <span class="game-badge"><i class="fas fa-users"></i> 2M+ active</span>
+<!-- PAGE 2: GAMES (expanded) -->
+<div id="games-page" class="page">
+    <section style="padding: 120px 50px 80px;">
+        <h2 style="font-size: 2.8rem; text-align: center; margin-bottom: 20px;"><i class="fas fa-fire"></i> GAME LIBRARY</h2>
+        <div class="game-cards">
+            <div class="card" data-game="BGMI" data-desc="Battlegrounds Mobile India | 100 players intense battle royale">
+                <img src="https://upload.wikimedia.org/wikipedia/en/6/63/Battleground_Mobile_India.webp" alt="BGMI">
+                <div class="card-content"><h3><i class="fas fa-crosshairs"></i> BGMI</h3><p>Erangel awaits. Squad up & claim chicken dinner.</p></div>
+            </div>
+            <div class="card" data-game="Red Dead Redemption 2" data-desc="Open-world wild west masterpiece, outlaw legacy">
+                <img src="https://woodmart.xtemos.com/games/wp-content/uploads/sites/14/2023/06/w-vgs-adventure-red-dead-redemption-2.jpg" alt="RDR2">
+                <div class="card-content"><h3><i class="fas fa-horse-head"></i> Red Dead Redemption 2</h3><p>Epic western saga, breathtaking realism.</p></div>
+            </div>
+            <div class="card" data-game="Need For Speed Unbound" data-desc="Underground street racing, high-speed pursuit">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-0qsEMb3ZsaumlA7iQebTpnlZzDA1rtQ41A&s" alt="NFS">
+                <div class="card-content"><h3><i class="fas fa-car-side"></i> Need For Speed</h3><p>Turbocharge your ride, beat the rivals.</p></div>
+            </div>
+            <div class="card" data-game="Cyberpunk 2077" data-desc="Neon-drenched future, high-tech mayhem">
+                <img src="https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg" alt="Cyberpunk">
+                <div class="card-content"><h3><i class="fas fa-microchip"></i> Cyberpunk 2077</h3><p>Open-world RPG, cyber enhancements.</p></div>
+            </div>
+            <div class="card" data-game="Valorant" data-desc="Tactical shooter, precision gunplay">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv8zdT9tgQOQwqY0MN2ZtpFeqw55LwkKFNvA&s" alt="Valorant">
+                <div class="card-content"><h3><i class="fas fa-bullseye"></i> Valorant</h3><p>Agents, abilities, competitive ranked.</p></div>
+            </div>
+            <div class="card" data-game="Apex Legends" data-desc="Fast-paced battle royale with legends">
+                <img src="https://upload.wikimedia.org/wikipedia/en/d/db/Apex_legends_cover.jpg" alt="Apex">
+                <div class="card-content"><h3><i class="fas fa-users"></i> Apex Legends</h3><p>Squad up, master abilities.</p></div>
+            </div>
+            <div class="card" data-game="Call Of Duty" data-desc="Open-world wild west masterpiece, outlaw legacy">
+                <img src="https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25524871/modern_warfare_3_graphic_price.jpg?quality=90&strip=all&crop=7.8125,0,84.375,100" alt="RDR2">
+                <div class="card-content"><h3><i class="fas fa-crosshairs"></i> Call Of Duty</h3><p>simulate the infantry and combined arms warfare</p></div>
+            </div>
+            <div class="card" data-game="The Last Of Us" data-desc="Fast-paced battle royale with legends">
+                <img src="https://m.media-amazon.com/images/M/MV5BMTE2MmQ3OTctZmExNi00ZTYxLTgzMGYtOTdlYjFjNzIxNWMxXkEyXkFqcGc@._V1_.jpg" alt="Apex">
+                <div class="card-content"><h3><i class="fas fa-users"></i> Apex Legends</h3><p>A young girl who is immune to the infection.</p></div>
             </div>
         </div>
-        <!-- Card 2: RDR 2 -->
-        <div class="card" data-game="Red Dead Redemption 2" data-desc="Open-world wild west masterpiece, outlaw legacy">
-            <img src="https://woodmart.xtemos.com/games/wp-content/uploads/sites/14/2023/06/w-vgs-adventure-red-dead-redemption-2.jpg" alt="RDR2">
-            <div class="card-content">
-                <h3><i class="fas fa-horse-head"></i> Red Dead Redemption 2</h3>
-                <p>Epic western saga, breathtaking realism.</p>
-                <span class="game-badge"><i class="fas fa-award"></i> GOTY</span>
-            </div>
-        </div>
-        <!-- Card 3: Need For Speed -->
-        <div class="card" data-game="Need For Speed Unbound" data-desc="Underground street racing, high-speed pursuit">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQArqxxEpNqjtKl2pD6sjpTQkowFzMmgt-HrA&s" alt="NFS">
-            <div class="card-content">
-                <h3><i class="fas fa-car-side"></i> Need For Speed</h3>
-                <p>Turbocharge your ride, beat the rivals.</p>
-                <span class="game-badge"><i class="fas fa-flag-checkered"></i> Drift Zone</span>
-            </div>
-        </div>
-        <!-- NEW DYNAMIC CARD 4: CYBERPUNK -->
-        <div class="card" data-game="Cyberpunk 2077" data-desc="Neon-drenched future, high-tech mayhem">
-            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format" alt="Cyberpunk">
-            <div class="card-content">
-                <h3><i class="fas fa-microchip"></i> Cyberpunk 2077</h3>
-                <p>Open-world RPG, cyber enhancements.</p>
-                <span class="game-badge"><i class="fas fa-brain"></i> Phantom Liberty</span>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+</div>
 
-<!-- Tournament dynamic section -->
-<section id="tournament">
-    <div class="tournament-zone">
-        <h2 style="font-size: 2rem;"><i class="fas fa-crown"></i> DEVOPS CUP 2026</h2>
-        <div class="prize-pool"><i class="fas fa-gem"></i> $25,000 Prize Pool + Exclusive NFTs</div>
-        <div style="margin: 30px 0; font-size: 1.2rem;"><i class="fas fa-hourglass-half"></i> Grand Finale starts in:</div>
-        <div id="countdownDisplay" class="countdown-box">-- : -- : --</div>
-        <div style="margin-top: 30px;">
+<!-- PAGE 3: LEADERBOARD (expanded) -->
+<div id="leaderboard-page" class="page">
+    <section style="padding: 120px 30px 80px;">
+        <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-chart-simple"></i> GLOBAL ELITE RANKINGS</h2>
+        <div class="rank-list" style="max-width: 900px; margin: 40px auto;">
+            <div class="rank-item"><span><i class="fas fa-crown" style="color: gold;"></i> 1. AXL IS LIVE</span><span>12,450 RP</span></div>
+            <div class="rank-item"><span><i class="fas fa-medal" style="color: silver;"></i> 2. ULTRA INSTINCT</span><span>11,980 RP</span></div>
+            <div class="rank-item"><span><i class="fas fa-medal" style="color: #cd7f32;"></i> 3. NOOBDA PAAJI</span><span>11,200 RP</span></div>
+            <div class="rank-item"><span>4. IMESTO</span><span>10,750 RP</span></div>
+            <div class="rank-item"><span>5. H SUNFLOWER</span><span>10,120 RP</span></div>
+            <div class="rank-item"><span>6. H TAU</span><span>9,890 RP</span></div>
+            <div class="rank-item"><span>7. H PUNISHER</span><span>9,200 RP</span></div>
+            <div class="rank-item"><span>8. H DEE</span><span>8,770 RP</span></div>
+            <div class="rank-item"><span>9. I AM KING</span><span>8,450 RP</span></div>
+        </div>
+    </section>
+</div>
+
+<!-- PAGE 4: ESPORTS / TOURNAMENTS -->
+<div id="esports-page" class="page">
+    <section style="padding: 120px 50px 80px;">
+        <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-trophy"></i> ESPORTS SCHEDULE</h2>
+        <div class="esports-grid" style="margin-top: 50px;">
+            <div class="esports-card"><div class="esports-content"><h3><i class="fas fa-calendar-alt"></i> DEVOPS CUP 2026</h3><p>July 20-25 | ₹5,000,00 Prize Pool</p><button class="btn register-esports" style="margin-top: 15px;">Register</button></div></div>
+            <div class="esports-card"><div class="esports-content"><h3><i class="fas fa-calendar-alt"></i> VALORANT CHALLENGERS</h3><p>Aug 5-7 | ₹2,500,00 Prize Pool</p><button class="btn register-esports" style="margin-top: 15px;">Register</button></div></div>
+            <div class="esports-card"><div class="esports-content"><h3><i class="fas fa-calendar-alt"></i> BGMI PRO SERIES</h3><p>Aug 15-20 | ₹6,000,00 Prize Pool</p><button class="btn register-esports" style="margin-top: 15px;">Register</button></div></div>
+            <div class="esports-card"><div class="esports-content"><h3><i class="fas fa-calendar-alt"></i> APEX LEGENDS CUP</h3><p>Sep 1-3 | ₹4,000,00 Prize Pool</p><button class="btn register-esports" style="margin-top: 15px;">Register</button></div></div>
+        </div>
+        <div class="tournament-zone" style="margin-top: 60px;">
+            <h2><i class="fas fa-hourglass-half"></i> NEXT MAJOR</h2>
+            <div id="countdownDisplay" class="countdown-box">-- : -- : --</div>
             <button class="btn" id="registerBtn"><i class="fas fa-clipboard-list"></i> REGISTER NOW</button>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 
-<footer>
-    <p><i class="fas fa-copyright"></i> 2026 DevOps Gaming — <i class="fas fa-headset"></i> Immerse. Compete. Dominate. <i class="fas fa-infinity"></i></p>
-</footer>
+<!-- PAGE 5: SHOP (new) -->
+<div id="shop-page" class="page">
+    <section style="padding: 120px 50px 80px;">
+        <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-store"></i> MERCH & PRODUCTS </h2>
+        <div class="shop-grid">
+            <div class="shop-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Yp1sw-K1gWwG9XexJROi2Fqr76iWJmV50Q&s" alt="Tshirt"><div class="shop-content"><h3>Cyber Jersey</h3><p>Limited edition neon jersey</p><span style="color:#00e0ff;">$49.99</span><button class="btn buy-btn" style="margin-top: 12px;">Buy Now</button></div></div>
+            <div class="shop-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS4-75e2pY6F0oljXIUeJayIJomx2po-HQ4A&s" alt="Headset"><div class="shop-content"><h3>Gaming Headset</h3><p>7.1 Surround RGB</p><span style="color:#00e0ff;">$89.99</span><button class="btn buy-btn">Buy Now</button></div></div>
+            <div class="shop-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH69sj4pJjItEiIWAHeX2ulxqsWRG_TI6S4g&s" alt="Mousepad"><div class="shop-content"><h3>Gaming Mousepad</h3><p>Extended RGB mat</p><span style="color:#00e0ff;">$29.99</span><button class="btn buy-btn">Buy Now</button></div></div>
+            <div class="shop-item"><img src="https://i.extremetech.com/imagery/content-types/00hygCJbhhvWfYz79pKTe4x/hero-image.fit_lim.v1678673392.jpg" alt="Skin"><div class="shop-content"><h3>Gaming Keyboard</h3><p>Exclusive skin</p><span style="color:#00e0ff;">$9.99</span><button class="btn buy-btn">Buy Now</button></div></div>
+        </div>
+    </section>
+</div>
 
-<!-- Modal structure enhanced -->
+<!-- PAGE 6: HALL OF FAME -->
+<div id="halloffame-page" class="page">
+    <section style="padding: 120px 30px 80px;">
+        <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-star"></i> LEGENDS HALL OF FAME</h2>
+        <div class="hall-grid" style="margin-top: 50px;">
+            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-user-astronaut"></i> AXL IS LIVE</h3><p>3x DevOps Cup Champion | 2024 MVP</p><i class="fas fa-trophy" style="color: gold;"></i></div></div>
+            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-user-ninja"></i> H SUNFLOWER</h3><p>Undefeated BGMI Legend | 2025 Winner</p><i class="fas fa-crown" style="color: cyan;"></i></div></div>
+            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-user-secret"></i> H PUNISHER</h3><p>Most Kills Record | 2x MVP</p><i class="fas fa-fire" style="color: orange;"></i></div></div>
+            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-robot"></i> ULTRA INSTINCT</h3><p>Hall of Fame Inductee 2025</p><i class="fas fa-gem"></i></div></div>
+        </div>
+    </section>
+</div>
+
+<!-- PAGE 7: SUPPORT -->
+<div id="support-page" class="page">
+    <section style="padding: 120px 30px 80px; max-width: 800px; margin: 0 auto;">
+        <h2 style="font-size: 2.5rem; text-align: center;"><i class="fas fa-headset"></i> 24/7 SUPPORT HUB</h2>
+        <div style="background: rgba(0,0,0,0.6); border-radius: 48px; padding: 40px; margin-top: 40px;">
+            <div style="display: flex; gap: 20px; flex-direction: column;">
+                <div><i class="fas fa-envelope"></i> support@devopsgaming.com</div>
+                <div><i class="fab fa-discord"></i> Discord: /devops-support</div>
+                <div><i class="fas fa-phone-alt"></i> 1234567890</div>
+                <hr style="border-color: cyan;">
+                <h3>FAQs</h3>
+                <p><strong>How to join tournaments?</strong> - Register via ESPORTS page.</p>
+                <p><strong>Refund policy?</strong> - 14 days return on merchandise.</p>
+                <button class="btn" id="contactBtn"><i class="fas fa-comment"></i> CONTACT AGENT</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- MODAL -->
 <div class="modal" id="gameModal">
     <div class="modal-content">
-        <h2 id="modalGameTitle"><i class="fas fa-dice-d6"></i> Game Title</h2>
+        <h2 id="modalGameTitle"><i class="fas fa-gamepad"></i> Game Title</h2>
         <p id="modalGameDesc">Launching simulation...</p>
-        <div style="margin: 15px 0;">
-            <div id="loadingBar" style="width: 0%; height: 4px; background: #00d4ff; border-radius: 4px; transition: width 0.2s;"></div>
-        </div>
+        <div style="margin: 15px 0;"><div id="loadingBar" style="width: 0%; height: 4px; background: #00d4ff; border-radius: 4px;"></div></div>
         <button class="btn" id="modalCloseBtn"><i class="fas fa-times-circle"></i> CLOSE</button>
     </div>
 </div>
 
 <script>
-    // ======================== 1. DYNAMIC COUNTDOWN TIMER 
-    let targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 3);
-    targetDate.setHours(20, 0, 0, 0);  // 3 days later at 8:00 PM
-    
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        
-        if (distance <= 0) {
-            document.getElementById("countdownDisplay").innerHTML = "<i class='fas fa-play-circle'></i> LIVE BATTLE <i class='fas fa-fire'></i>";
-            document.getElementById("countdownDisplay").style.animation = "pulseGlow 0.8s infinite alternate";
-            const styleSheet = document.createElement("style");
-            styleSheet.textContent = `@keyframes pulseGlow { 0% { text-shadow: 0 0 5px cyan; } 100% { text-shadow: 0 0 25px #00ffff; } }`;
-            document.head.appendChild(styleSheet);
-            return;
-        }
-        
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (86400000)) / (3600000));
-        const minutes = Math.floor((distance % 3600000) / 60000);
-        const seconds = Math.floor((distance % 60000) / 1000);
-        
-        let formatted = "";
-        if (days > 0) formatted += `${days}d `;
-        formatted += `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        document.getElementById("countdownDisplay").innerHTML = `<i class="fas fa-hourglass-start"></i> ${formatted}`;
+    // Multi-Page Navigation
+    const pages = {
+        home: document.getElementById('home-page'),
+        games: document.getElementById('games-page'),
+        leaderboard: document.getElementById('leaderboard-page'),
+        esports: document.getElementById('esports-page'),
+        shop: document.getElementById('shop-page'),
+        halloffame: document.getElementById('halloffame-page'),
+        support: document.getElementById('support-page')
+    };
+    function showPage(pageId) {
+        Object.values(pages).forEach(p => p.classList.remove('active-page'));
+        pages[pageId].classList.add('active-page');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-    
-    // ======================== 2. CARD INTERACTIONS WITH DYNAMIC MODAL 
-    const cards = document.querySelectorAll('.card');
-    const modal = document.getElementById('gameModal');
-    const modalTitle = document.getElementById('modalGameTitle');
-    const modalDesc = document.getElementById('modalGameDesc');
-    const loadingBar = document.getElementById('loadingBar');
-    let activeTimeout = null;
-    
-    function openGameModal(gameName, gameDescription) {
-        modalTitle.innerHTML = `<i class="fas fa-gamepad"></i> ${gameName}`;
-        modalDesc.innerText = gameDescription + " — initializing secure connection...";
-        modal.style.display = "flex";
-        loadingBar.style.width = "0%";
-        
-        let progress = 0;
-        if (activeTimeout) clearInterval(activeTimeout);
-        const interval = setInterval(() => {
-            progress += Math.floor(Math.random() * 15) + 5;
-            if (progress >= 100) {
-                progress = 100;
-                loadingBar.style.width = "100%";
-                clearInterval(interval);
-                modalDesc.innerHTML = `<i class="fas fa-check-circle"></i> ${gameName} READY! <br> <i class="fas fa-headset"></i> Launching game client... (click close)`;
-                setTimeout(() => {
-                    if (modal.style.display === "flex") {
-                        modalDesc.style.transition = "0.2s";
-                        modalDesc.style.textShadow = "0 0 6px #0aff";
-                    }
-                }, 50);
-            } else {
-                loadingBar.style.width = progress + "%";
-                modalDesc.innerText = `${gameDescription} — loading assets ${progress}%`;
-            }
-        }, 45);
-        
-        modal._loadInterval = interval;
-    }
-    
-    cards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            e.stopPropagation();
-            let gameName = card.getAttribute('data-game') || card.querySelector('h3')?.innerText || "Unknown Game";
-            let gameDesc = card.getAttribute('data-desc') || "Ultimate gaming experience awaits!";
-            
-            if (gameName === "BGMI" && !card.getAttribute('data-desc')) gameDesc = "Drop into battleground, ultimate survival shooter.";
-            if (gameName === "Red Dead Redemption 2") gameDesc = "Explore the wild west, bounty hunting & outlaw life.";
-            if (gameName === "Need For Speed") gameDesc = "Street racing, customization, police chase mayhem.";
-            if (gameName === "Cyberpunk 2077") gameDesc = "Night City, cybernetic upgrades, open world action.";
-            
-            card.classList.add('active-card');
-            setTimeout(() => {
-                card.classList.remove('active-card');
-            }, 600);
-            
-            openGameModal(gameName, gameDesc);
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = link.getAttribute('data-page');
+            if (page && pages[page]) showPage(page);
         });
     });
-    
-    function closeModalAndClean() {
-        if (modal._loadInterval) {
-            clearInterval(modal._loadInterval);
-            modal._loadInterval = null;
-        }
-        modal.style.display = "none";
-        loadingBar.style.width = "0%";
-        modalDesc.innerText = "Launching game...";
-    }
-    
-    document.getElementById('modalCloseBtn').addEventListener('click', closeModalAndClean);
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) closeModalAndClean();
-    });
-    
-    // ======================== 3. HERO START BUTTON: dynamic interaction
-    const startBtn = document.getElementById('dynamicStartBtn');
-    startBtn.addEventListener('click', (e) => {
-        const ripple = document.createElement('span');
-        ripple.classList.add('ripple-effect');
-        ripple.style.position = 'absolute';
-        ripple.style.borderRadius = '50%';
-        ripple.style.backgroundColor = 'rgba(0,212,255,0.6)';
-        ripple.style.pointerEvents = 'none';
-        ripple.style.width = '10px';
-        ripple.style.height = '10px';
-        ripple.style.transform = 'translate(-50%, -50%) scale(0)';
-        ripple.style.animation = 'rippleAnim 0.5s ease-out';
-        const rect = e.target.getBoundingClientRect();
-        ripple.style.left = (e.clientX - rect.left) + 'px';
-        ripple.style.top = (e.clientY - rect.top) + 'px';
-        e.target.style.position = 'relative';
-        e.target.style.overflow = 'hidden';
-        e.target.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 500);
-        
-        const messages = ["<i class='fas fa-search'></i> Searching for opponents...", "<i class='fas fa-chart-line'></i> Skill-based matchmaking active", "<i class='fas fa-handshake'></i> Opponent found! Get ready", "<i class='fas fa-rocket'></i> Teleporting to arena..."];
-        let idx = 0;
-        const originalHTML = startBtn.innerHTML;
-        startBtn.innerHTML = messages[0];
-        const msgInterval = setInterval(() => {
-            idx++;
-            if (idx < messages.length) {
-                startBtn.innerHTML = messages[idx];
-            } else {
-                clearInterval(msgInterval);
-                startBtn.innerHTML = "<i class='fas fa-check-double'></i> READY! JOIN BATTLE";
-                setTimeout(() => {
-                    startBtn.innerHTML = originalHTML;
-                }, 1500);
-                alert("🔥 MATCH READY! Welcome to DevOps Gaming Lobby");
-            }
-        }, 800);
-    });
-    
-    // Register tournament button dynamic interaction
-    const registerBtn = document.getElementById('registerBtn');
-    registerBtn.addEventListener('click', () => {
-        const countdownDiv = document.getElementById('countdownDisplay');
-        const isLive = countdownDiv.innerHTML.includes("LIVE") || countdownDiv.innerHTML.includes("LIVE BATTLE");
-        if (isLive) {
-            alert("🏆 TOURNAMENT LIVE! Redirecting to bracket...");
-        } else {
-            alert("✅ You've been registered for DevOps Cup! Check your email for confirmation.");
-            registerBtn.innerHTML = "<i class='fas fa-check-circle'></i> REGISTERED";
-            registerBtn.disabled = true;
-            registerBtn.style.opacity = "0.7";
-            setTimeout(() => {
-                registerBtn.innerHTML = "<i class='fas fa-clipboard-list'></i> REGISTER NOW";
-                registerBtn.disabled = false;
-                registerBtn.style.opacity = "1";
-            }, 3000);
-        }
-    });
-    
-    // ======================== 4. ADDITIONAL DYNAMIC EFFECTS (mouse parallax)
-    const heroTitle = document.querySelector('.hero h1');
-    document.addEventListener('mousemove', (e) => {
-        if (!heroTitle) return;
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 35;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 35;
-        heroTitle.style.transform = `translate(${xAxis * 0.5}px, ${yAxis * 0.3}px)`;
-    });
-    
-    // floating particles
-    const particlesDiv = document.querySelector('.particles');
-    for (let i = 0; i < 60; i++) {
-        const dot = document.createElement('div');
+
+    // Particles
+    const container = document.getElementById('particleContainer');
+    for (let i = 0; i < 120; i++) {
+        let dot = document.createElement('div');
         dot.style.position = 'absolute';
-        dot.style.width = `${Math.random() * 3 + 1}px`;
+        let size = Math.random() * 3 + 1;
+        dot.style.width = `${size}px`;
         dot.style.height = dot.style.width;
-        dot.style.background = `rgba(0, 212, 255, ${Math.random() * 0.4 + 0.1})`;
+        dot.style.background = `radial-gradient(circle, cyan, #00aaff)`;
         dot.style.borderRadius = '50%';
         dot.style.top = `${Math.random() * 100}%`;
         dot.style.left = `${Math.random() * 100}%`;
         dot.style.pointerEvents = 'none';
-        dot.style.filter = 'blur(1px)';
-        dot.style.animation = `floatParticle ${Math.random() * 12 + 8}s infinite ease-in-out`;
-        dot.style.animationDelay = `${Math.random() * 5}s`;
-        particlesDiv.appendChild(dot);
+        dot.style.animation = `floatParticle ${Math.random() * 14 + 7}s infinite ease-in-out`;
+        dot.style.opacity = Math.random() * 0.5 + 0.2;
+        container.appendChild(dot);
     }
-    const styleSheetAnim = document.createElement('style');
-    styleSheetAnim.textContent = `
-        @keyframes floatParticle {
-            0% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
-            50% { transform: translateY(-30px) translateX(15px); opacity: 0.7; }
-            100% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+
+    // Countdown Timer
+    let targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 3);
+    targetDate.setHours(20, 0, 0, 0);
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        const el = document.getElementById("countdownDisplay");
+        if (!el) return;
+        if (distance <= 0) {
+            el.innerHTML = "<i class='fas fa-play-circle'></i> LIVE BATTLE";
+            return;
         }
-        @keyframes rippleAnim {
-            to { transform: translate(-50%, -50%) scale(20); opacity: 0; }
-        }
-        .card {
-            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-    `;
-    document.head.appendChild(styleSheetAnim);
-    
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        if (window.scrollY > 50) {
-            header.style.background = "rgba(0, 5, 12, 0.85)";
-            header.style.backdropFilter = "blur(20px)";
-        } else {
-            header.style.background = "rgba(2, 12, 22, 0.65)";
-        }
-    });
-    
-    const allImages = document.querySelectorAll('img');
-    allImages.forEach(img => {
-        img.setAttribute('loading', 'lazy');
-        if (!img.complete) {
-            img.style.background = "#0f1b2b";
-        }
-    });
-    
-    const footerYear = document.querySelector('footer p');
-    if (footerYear) footerYear.innerHTML = `<i class="fas fa-copyright"></i> ${new Date().getFullYear()} DevOps Gaming — <i class="fas fa-headset"></i> Immerse. Compete. Dominate. <i class="fas fa-infinity"></i>`;
-    
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const days = Math.floor(distance / (1000*60*60*24));
+        const hours = Math.floor((distance % 86400000) / 3600000);
+        const minutes = Math.floor((distance % 3600000) / 60000);
+        const seconds = Math.floor((distance % 60000) / 1000);
+        el.innerHTML = `${days}d ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Game Modal Logic
+    const cards = document.querySelectorAll('#games-page .card');
+    const modal = document.getElementById('gameModal');
+    const modalTitle = document.getElementById('modalGameTitle');
+    const modalDesc = document.getElementById('modalGameDesc');
+    const loadingBar = document.getElementById('loadingBar');
+    let activeInterval = null;
+
+    function openGameModal(name, desc) {
+        modalTitle.innerHTML = `<i class="fas fa-gamepad"></i> ${name}`;
+        modalDesc.innerText = desc + " — initializing...";
+        modal.style.display = "flex";
+        loadingBar.style.width = "0%";
+        if (activeInterval) clearInterval(activeInterval);
+        let progress = 0;
+        activeInterval = setInterval(() => {
+            progress += Math.floor(Math.random() * 15) + 5;
+            if (progress >= 100) {
+                progress = 100;
+                loadingBar.style.width = "100%";
+                clearInterval(activeInterval);
+                modalDesc.innerHTML = `<i class="fas fa-check-circle"></i> ${name} READY! Launching...`;
+            } else {
+                loadingBar.style.width = progress + "%";
+                modalDesc.innerText = `${desc} — loading ${progress}%`;
             }
+        }, 40);
+    }
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            let gameName = card.getAttribute('data-game') || card.querySelector('h3')?.innerText;
+            let gameDesc = card.getAttribute('data-desc') || "Experience the action!";
+            openGameModal(gameName, gameDesc);
+        });
+    });
+    function closeModal() {
+        if (activeInterval) clearInterval(activeInterval);
+        modal.style.display = "none";
+        loadingBar.style.width = "0%";
+    }
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+    // Buttons: Matchmaking, Register, Shop, Esports, Support
+    document.getElementById('dynamicStartBtn')?.addEventListener('click', () => alert("🔥 MATCH FOUND! Welcome to DevOps Gaming Lobby"));
+    document.getElementById('registerBtn')?.addEventListener('click', () => alert("✅ Registered for DevOps Cup! Check your email."));
+    document.querySelectorAll('.register-esports').forEach(btn => btn.addEventListener('click', () => alert("🎮 Tournament registration successful!")));
+    document.querySelectorAll('.buy-btn').forEach(btn => btn.addEventListener('click', () => alert("🛒 Item added to cart! Proceed to checkout.")));
+    document.getElementById('contactBtn')?.addEventListener('click', () => alert("📞 Support agent will connect shortly."));
+
+    // 3D tilt for cards globally
+    document.querySelectorAll('.card, .shop-item, .esports-card').forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            el.style.setProperty('--x', `${x}%`);
+            el.style.setProperty('--y', `${y}%`);
+            const rotateY = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+            const rotateX = ((e.clientY - rect.top) / rect.height - 0.5) * -10;
+            el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        });
+        el.addEventListener('mouseleave', () => {
+            el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
         });
     });
 </script>
