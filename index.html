@@ -382,48 +382,880 @@
 </div>
 
 <!-- PAGE 2: GAMES (expanded) -->
-<div id="games-page" class="page">
+<div id="shop-page" class="page">
+    <style>
+        /* ===== MERCH & PRODUCTS - RICH COLORS & DYNAMIC ANIMATIONS ===== */
+        #shop-page {
+            --gold: #d4af37;
+            --cyan: #00f2ff;
+            --purple: #9b59b6;
+            --coral: #ff6b6b;
+            --green: #2eff7a;
+            --blue: #2d7aff;
+            --pink: #ff2d75;
+            --orange: #ff8c2d;
+            --pearl: #f5f0e8;
+            --teal: #20b2aa;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a14 0%, #0f0f1a 50%, #0a0a14 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated gradient background */
+        #shop-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.07) 0%, transparent 50%),
+                        radial-gradient(circle at 45% 80%, rgba(255, 45, 117, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(155, 89, 182, 0.07) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 60%, rgba(46, 255, 122, 0.05) 0%, transparent 50%);
+            animation: bgPulse 8s infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgPulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.03); }
+        }
+
+        /* Floating particles */
+        #shop-page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="15" cy="25" r="1.5" fill="%2300f2ff" opacity="0.4"/><circle cx="85" cy="55" r="1" fill="%23d4af37" opacity="0.35"/><circle cx="45" cy="75" r="1.2" fill="%23ff2d75" opacity="0.3"/><circle cx="70" cy="15" r="0.8" fill="%239b59b6" opacity="0.4"/><circle cx="90" cy="85" r="1.1" fill="%23ff6b6b" opacity="0.35"/><circle cx="25" cy="90" r="0.9" fill="%232d7aff" opacity="0.3"/><circle cx="55" cy="45" r="0.7" fill="%232eff7a" opacity="0.35"/></svg>');
+            background-repeat: repeat;
+            background-size: 100px 100px;
+            pointer-events: none;
+            opacity: 0.4;
+            animation: particleFloat 25s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes particleFloat {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        #shop-page section {
+            position: relative;
+            z-index: 2;
+            animation: sectionReveal 0.8s ease-out;
+        }
+
+        @keyframes sectionReveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Heading with elegant glow */
+        #shop-page h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--pearl);
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            animation: headingPulse 3s infinite alternate;
+        }
+
+        @keyframes headingPulse {
+            0% { text-shadow: 0 0 0px rgba(0, 242, 255, 0.3); }
+            100% { text-shadow: 0 0 18px rgba(212, 175, 55, 0.5), 0 0 8px rgba(0, 242, 255, 0.4); }
+        }
+
+        @media (max-width: 680px) {
+            #shop-page h2 {
+                font-size: 1.8rem;
+                white-space: normal;
+                width: 90%;
+            }
+        }
+
+        #shop-page h2 i {
+            margin-right: 12px;
+            color: var(--cyan);
+            font-size: 2.2rem;
+            vertical-align: middle;
+            animation: storeIcon 3s infinite alternate;
+        }
+
+        @keyframes storeIcon {
+            0% { transform: scale(1); color: var(--cyan); }
+            100% { transform: scale(1.1); color: var(--gold); }
+        }
+
+        /* Animated underline */
+        #shop-page h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 15%;
+            width: 70%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), var(--gold), var(--pink), transparent);
+            border-radius: 2px;
+            animation: underlineShift 3s infinite alternate;
+            background-size: 200% auto;
+        }
+
+        @keyframes underlineShift {
+            0% { background-position: 0% 50%; width: 60%; left: 20%; }
+            100% { background-position: 100% 50%; width: 70%; left: 15%; }
+        }
+
+        /* Shop grid */
+        .shop-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 35px;
+            margin-top: 60px;
+        }
+
+        /* Shop item card */
+        .shop-item {
+            width: 280px;
+            background: rgba(15, 20, 35, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            border: 1px solid rgba(0, 242, 255, 0.25);
+            box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: cardFloat 5s infinite ease-in-out;
+            cursor: pointer;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* Staggered animation delays */
+        .shop-item:nth-child(1) { animation-delay: 0s; }
+        .shop-item:nth-child(2) { animation-delay: 0.15s; }
+        .shop-item:nth-child(3) { animation-delay: 0.3s; }
+        .shop-item:nth-child(4) { animation-delay: 0.45s; }
+
+        /* Individual card border colors */
+        .shop-item:nth-child(1) { border-top: 3px solid var(--cyan); }
+        .shop-item:nth-child(2) { border-top: 3px solid var(--purple); }
+        .shop-item:nth-child(3) { border-top: 3px solid var(--gold); }
+        .shop-item:nth-child(4) { border-top: 3px solid var(--pink); }
+
+        .shop-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            border: 1px solid rgba(0, 242, 255, 0.5);
+            transition: all 0.35s ease;
+        }
+
+        /* Hover glow per card */
+        .shop-item:nth-child(1):hover { box-shadow: 0 0 30px rgba(0, 242, 255, 0.35), 0 25px 40px -15px black; }
+        .shop-item:nth-child(2):hover { box-shadow: 0 0 30px rgba(155, 89, 182, 0.35), 0 25px 40px -15px black; }
+        .shop-item:nth-child(3):hover { box-shadow: 0 0 30px rgba(212, 175, 55, 0.35), 0 25px 40px -15px black; }
+        .shop-item:nth-child(4):hover { box-shadow: 0 0 30px rgba(255, 45, 117, 0.35), 0 25px 40px -15px black; }
+
+        /* Card shine effect */
+        .shop-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .shop-item:hover::before {
+            left: 150%;
+        }
+
+        /* Card images */
+        .shop-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: all 0.4s ease;
+            filter: brightness(0.9) saturate(1.05);
+        }
+
+        .shop-item:hover img {
+            transform: scale(1.03);
+            filter: brightness(1) saturate(1.15);
+        }
+
+        /* Shop content */
+        .shop-content {
+            padding: 20px 18px 25px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .shop-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Gradient text per card */
+        .shop-item:nth-child(1) .shop-content h3 { background: linear-gradient(135deg, var(--pearl), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .shop-item:nth-child(2) .shop-content h3 { background: linear-gradient(135deg, var(--pearl), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .shop-item:nth-child(3) .shop-content h3 { background: linear-gradient(135deg, var(--pearl), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .shop-item:nth-child(4) .shop-content h3 { background: linear-gradient(135deg, var(--pearl), var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        .shop-content p {
+            color: #b8b8d0;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            transition: all 0.3s;
+        }
+
+        .shop-item:hover .shop-content p {
+            color: var(--pearl);
+        }
+
+        /* Price styling */
+        .shop-content span {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: monospace;
+            letter-spacing: 1px;
+            padding: 5px 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 40px;
+            transition: all 0.3s;
+        }
+
+        .shop-item:nth-child(1) .shop-content span { color: var(--cyan); text-shadow: 0 0 5px rgba(0, 242, 255, 0.3); }
+        .shop-item:nth-child(2) .shop-content span { color: var(--purple); text-shadow: 0 0 5px rgba(155, 89, 182, 0.3); }
+        .shop-item:nth-child(3) .shop-content span { color: var(--gold); text-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
+        .shop-item:nth-child(4) .shop-content span { color: var(--pink); text-shadow: 0 0 5px rgba(255, 45, 117, 0.3); }
+
+        .shop-item:hover .shop-content span {
+            transform: scale(1.05);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Buy button styling */
+        .buy-btn {
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
+        }
+
+        .shop-item:nth-child(1) .buy-btn { background: linear-gradient(95deg, var(--cyan), #0066cc); }
+        .shop-item:nth-child(2) .buy-btn { background: linear-gradient(95deg, var(--purple), #6600aa); }
+        .shop-item:nth-child(3) .buy-btn { background: linear-gradient(95deg, var(--gold), #aa8800); }
+        .shop-item:nth-child(4) .buy-btn { background: linear-gradient(95deg, var(--pink), #cc0055); }
+
+        .buy-btn i {
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        .buy-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Corner accent for each card */
+        .shop-item {
+            position: relative;
+        }
+
+        .shop-item::after {
+            content: '';
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 25px;
+            height: 25px;
+            border-bottom: 2px solid;
+            border-right: 2px solid;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: scale(0.8);
+        }
+
+        .shop-item:nth-child(1)::after { border-color: var(--cyan); }
+        .shop-item:nth-child(2)::after { border-color: var(--purple); }
+        .shop-item:nth-child(3)::after { border-color: var(--gold); }
+        .shop-item:nth-child(4)::after { border-color: var(--pink); }
+
+        .shop-item:hover::after {
+            opacity: 0.7;
+            transform: scale(1);
+        }
+
+        /* Responsive */
+        @media (max-width: 780px) {
+            #shop-page section {
+                padding: 100px 20px 60px;
+            }
+            .shop-grid {
+                gap: 25px;
+            }
+            .shop-item {
+                width: 260px;
+            }
+        }
+
+        /* Toast notification */
+        .shop-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: linear-gradient(145deg, #12162e, #080c1c);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 60px;
+            font-weight: bold;
+            z-index: 999;
+            border-left: 5px solid;
+            border-right: 5px solid;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+            font-size: 0.95rem;
+            animation: toastPopShop 0.4s ease forwards, fadeOutShop 0.5s ease 3s forwards;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 550px) {
+            .shop-toast {
+                white-space: normal;
+                max-width: 300px;
+                text-align: center;
+                line-height: 1.4;
+            }
+        }
+
+        @keyframes toastPopShop {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.7); }
+            80% { transform: translateX(-50%) scale(1.02); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+
+        @keyframes fadeOutShop {
+            to { opacity: 0; visibility: hidden; transform: translateX(-50%) scale(0.8); }
+        }
+    </style>
+
     <section style="padding: 120px 50px 80px;">
-        <h2 style="font-size: 2.8rem; text-align: center; margin-bottom: 20px;"><i class="fas fa-fire"></i> GAME LIBRARY</h2>
-        <div class="game-cards">
-            <div class="card" data-game="BGMI" data-desc="Battlegrounds Mobile India | 100 players intense battle royale">
-                <img src="https://downloadr2.apkmirror.com/wp-content/uploads/2026/01/11/6968f47bd8f74_com.pubg.imobile-384x384.png" alt="BGMI">
-                <div class="card-content"><h3><i class="fas fa-crosshairs"></i> BGMI</h3><p>Erangel awaits. Squad up & claim chicken dinner.</p></div>
+        <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-store"></i> MERCH & PRODUCTS</h2>
+        <div class="shop-grid">
+            <div class="shop-item">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/008/925/635/small/wonderful-and-bizarre-t-shirt-sports-abstract-jersey-suitable-for-racing-soccer-gaming-motocross-gaming-cycling-free-vector.jpg" alt="Tshirt">
+                <div class="shop-content">
+                    <h3>Cyber Jersey</h3>
+                    <p>Limited edition neon jersey</p>
+                    <span>₹2000</span>
+                    <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+                </div>
             </div>
-            <div class="card" data-game="Red Dead Redemption 2" data-desc="Open-world wild west masterpiece, outlaw legacy">
-                <img src="https://woodmart.xtemos.com/games/wp-content/uploads/sites/14/2023/06/w-vgs-adventure-red-dead-redemption-2.jpg" alt="RDR2">
-                <div class="card-content"><h3><i class="fas fa-horse-head"></i> Red Dead Redemption 2</h3><p>Epic western saga, breathtaking realism.</p></div>
+            <div class="shop-item">
+                <img src="https://www.gadgetmatch.com/wp-content/uploads/2024/03/Quake_2-Landscape-White-6-logitech-2024031.jpg" alt="Headset">
+                <div class="shop-content">
+                    <h3>Gaming Headset</h3>
+                    <p>7.1 Surround RGB</p>
+                    <span>₹8000</span>
+                    <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+                </div>
             </div>
-            <div class="card" data-game="Need For Speed Heat" data-desc="Underground street racing, high-speed pursuit">
-                <img src="https://www.cnet.com/a/img/resize/6afb5fa9fec860b6075f755412de7c0d9cabb19a/hub/2020/11/09/b072b524-4afc-476f-a78b-18f8bd9a58d2/nfs.jpg?auto=webp&fit=crop&height=675&width=1200" alt="NFS">
-                <div class="card-content"><h3><i class="fas fa-car-side"></i> Need For Speed</h3><p>Turbocharge your ride, beat the rivals.</p></div>
+            <div class="shop-item">
+                <img src="https://i.pinimg.com/736x/b0/8b/10/b08b104496ca361c4d3aec68b83c7f60.jpg" alt="Mousepad">
+                <div class="shop-content">
+                    <h3>Gaming Mousepad</h3>
+                    <p>Extended RGB mat</p>
+                    <span>₹900</span>
+                    <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+                </div>
             </div>
-            <div class="card" data-game="Cyberpunk 2077" data-desc="Neon-drenched future, high-tech mayhem">
-                <img src="https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg" alt="Cyberpunk">
-                <div class="card-content"><h3><i class="fas fa-microchip"></i> Cyberpunk 2077</h3><p>Open-world RPG, cyber enhancements.</p></div>
-            </div>
-            <div class="card" data-game="Valorant" data-desc="Tactical shooter, precision gunplay">
-                <img src="https://xboxwire.thesourcemediaassets.com/sites/2/2024/08/Val-Console-Launch-Hero-1080-__-GAME-STORES-80b474d3ff38615edd0a-1900x1080.jpg" alt="Valorant">
-                <div class="card-content"><h3><i class="fas fa-bullseye"></i> Valorant</h3><p>Agents, abilities, competitive ranked.</p></div>
-            </div>
-            <div class="card" data-game="Apex Legends" data-desc="Fast-paced battle royale with legends">
-                <img src="https://cdn.wccftech.com/wp-content/uploads/2025/07/Apex-Legends-Season-26-Gameplay-Debut.jpg" alt="Apex">
-                <div class="card-content"><h3><i class="fas fa-users"></i> Apex Legends</h3><p>Squad up, master abilities.</p></div>
-            </div>
-            <div class="card" data-game="Call Of Duty" data-desc="Open-world wild west masterpiece, outlaw legacy">
-                <img src="https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25524871/modern_warfare_3_graphic_price.jpg?quality=90&strip=all&crop=7.8125,0,84.375,100" alt="RDR2">
-                <div class="card-content"><h3><i class="fas fa-crosshairs"></i> Call Of Duty</h3><p>simulate the infantry and combined arms warfare</p></div>
-            </div>
-            <div class="card" data-game="The Last Of Us" data-desc="Fast-paced battle royale with legends">
-                <img src="https://m.media-amazon.com/images/M/MV5BMTE2MmQ3OTctZmExNi00ZTYxLTgzMGYtOTdlYjFjNzIxNWMxXkEyXkFqcGc@._V1_.jpg" alt="Apex">
-                <div class="card-content"><h3><i class="fas fa-users"></i> Apex Legends</h3><p>A young girl who is immune to the infection.</p></div>
+            <div class="shop-item">
+                <img src="https://i.extremetech.com/imagery/content-types/00hygCJbhhvWfYz79pKTe4x/hero-image.fit_lim.v1678673392.jpg" alt="Keyboard">
+                <div class="shop-content">
+                    <h3>Gaming Keyboard</h3>
+                    <p>Mechanical RGB skin</p>
+                    <span>₹4000</span>
+                    <button class="buy-btn"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+                </div>
             </div>
         </div>
     </section>
 </div>
 
+<script>
+    (function() {
+        // Interactive toast for shop items
+        const shopItems = document.querySelectorAll('.shop-item');
+        const colors = ['#00f2ff', '#9b59b6', '#d4af37', '#ff2d75'];
+        
+        function showShopToast(productName, price, colorIndex) {
+            const existingToast = document.querySelector('.shop-toast');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'shop-toast';
+            const borderColor = colors[colorIndex % colors.length];
+            toast.style.borderLeftColor = borderColor;
+            toast.style.borderRightColor = borderColor;
+            
+            toast.innerHTML = `<i class="fas fa-check-circle" style="margin-right: 10px; color: ${borderColor}"></i> 🛒 Added to cart: ${productName} - ${price}`;
+            
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                if (toast && toast.remove) toast.remove();
+            }, 3000);
+        }
+        
+        // Add to cart functionality for all buy buttons
+        const buyBtns = document.querySelectorAll('.buy-btn');
+        buyBtns.forEach((btn, idx) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const shopItem = btn.closest('.shop-item');
+                const productName = shopItem.querySelector('h3')?.innerText || 'Product';
+                const price = shopItem.querySelector('span')?.innerText || '₹0';
+                showShopToast(productName, price, idx);
+                
+                // Button click animation
+                btn.style.transform = "scale(0.95)";
+                setTimeout(() => {
+                    btn.style.transform = "";
+                }, 150);
+                
+                // Ripple effect on card
+                shopItem.style.transform = "scale(0.99)";
+                setTimeout(() => {
+                    shopItem.style.transform = "";
+                }, 200);
+            });
+        });
+        
+        // Card click effect (optional)
+        shopItems.forEach((item, idx) => {
+            item.addEventListener('click', (e) => {
+                if (e.target.classList.contains('buy-btn') || e.target.closest('.buy-btn')) return;
+                const productName = item.querySelector('h3')?.innerText || 'Product';
+                const price = item.querySelector('span')?.innerText || '₹0';
+                showShopToast(`✨ ${productName} - ${price}`, price, idx);
+            });
+        });
+        
+        console.log("🛍️ Shop Page — Rich colors and animations activated!");
+    })();
+</script>
 <!-- PAGE 3: LEADERBOARD (expanded) -->
 <div id="leaderboard-page" class="page">
+    <style>
+        /* ===== GLOBAL ELITE RANKINGS - RICH COLORS & DYNAMIC ANIMATIONS ===== */
+        #leaderboard-page {
+            --gold: #d4af37;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+            --cyan: #00f2ff;
+            --purple: #9b59b6;
+            --coral: #ff6b6b;
+            --green: #2eff7a;
+            --blue: #2d7aff;
+            --pearl: #f5f0e8;
+            --dark-bg: #0a0a14;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a14 0%, #0f0f1a 50%, #0a0a14 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated gradient background */
+        #leaderboard-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(0, 242, 255, 0.07) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 85%, rgba(155, 89, 182, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 60%, rgba(46, 255, 122, 0.05) 0%, transparent 50%);
+            animation: bgPulse 8s infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgPulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.03); }
+        }
+
+        /* Floating particles */
+        #leaderboard-page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="15" cy="25" r="1.5" fill="%23d4af37" opacity="0.4"/><circle cx="85" cy="55" r="1" fill="%2300f2ff" opacity="0.35"/><circle cx="45" cy="75" r="1.2" fill="%239b59b6" opacity="0.3"/><circle cx="70" cy="15" r="0.8" fill="%232eff7a" opacity="0.4"/><circle cx="90" cy="85" r="1.1" fill="%23ff6b6b" opacity="0.35"/><circle cx="25" cy="90" r="0.9" fill="%232d7aff" opacity="0.3"/></svg>');
+            background-repeat: repeat;
+            background-size: 100px 100px;
+            pointer-events: none;
+            opacity: 0.4;
+            animation: particleFloat 25s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes particleFloat {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        #leaderboard-page section {
+            position: relative;
+            z-index: 2;
+            animation: sectionReveal 0.8s ease-out;
+        }
+
+        @keyframes sectionReveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Heading with elegant glow */
+        #leaderboard-page h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--pearl);
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            animation: headingPulse 3s infinite alternate;
+        }
+
+        @keyframes headingPulse {
+            0% { text-shadow: 0 0 0px rgba(212, 175, 55, 0.3); }
+            100% { text-shadow: 0 0 18px rgba(212, 175, 55, 0.5), 0 0 8px rgba(0, 242, 255, 0.4); }
+        }
+
+        @media (max-width: 680px) {
+            #leaderboard-page h2 {
+                font-size: 1.8rem;
+                white-space: normal;
+                width: 90%;
+            }
+        }
+
+        #leaderboard-page h2 i {
+            margin-right: 12px;
+            color: var(--gold);
+            font-size: 2.2rem;
+            vertical-align: middle;
+            animation: chartRise 3s infinite ease-in-out;
+        }
+
+        @keyframes chartRise {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-5px) scale(1.1); color: var(--cyan); }
+        }
+
+        /* Animated underline */
+        #leaderboard-page h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 15%;
+            width: 70%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--cyan), var(--purple), var(--green), transparent);
+            border-radius: 2px;
+            animation: underlineShift 3s infinite alternate;
+            background-size: 200% auto;
+        }
+
+        @keyframes underlineShift {
+            0% { background-position: 0% 50%; width: 60%; left: 20%; }
+            100% { background-position: 100% 50%; width: 70%; left: 15%; }
+        }
+
+        /* Rank list container */
+        .rank-list {
+            max-width: 900px;
+            margin: 50px auto 40px;
+            background: rgba(15, 20, 35, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 20px 15px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            box-shadow: 0 25px 45px -20px rgba(0, 0, 0, 0.6);
+            animation: containerGlow 4s infinite alternate;
+        }
+
+        @keyframes containerGlow {
+            0% { border-color: rgba(0, 242, 255, 0.15); box-shadow: 0 25px 45px -20px rgba(0, 0, 0, 0.6); }
+            100% { border-color: rgba(212, 175, 55, 0.35); box-shadow: 0 25px 45px -15px rgba(0, 242, 255, 0.15); }
+        }
+
+        /* Rank items */
+        .rank-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 25px;
+            margin: 8px 0;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 60px;
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border-left: 3px solid;
+            animation: itemSlideIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        /* Staggered animation */
+        .rank-item:nth-child(1) { animation-delay: 0.05s; border-left-color: var(--gold); }
+        .rank-item:nth-child(2) { animation-delay: 0.1s; border-left-color: var(--silver); }
+        .rank-item:nth-child(3) { animation-delay: 0.15s; border-left-color: var(--bronze); }
+        .rank-item:nth-child(4) { animation-delay: 0.2s; border-left-color: var(--cyan); }
+        .rank-item:nth-child(5) { animation-delay: 0.25s; border-left-color: var(--green); }
+        .rank-item:nth-child(6) { animation-delay: 0.3s; border-left-color: var(--purple); }
+        .rank-item:nth-child(7) { animation-delay: 0.35s; border-left-color: var(--coral); }
+        .rank-item:nth-child(8) { animation-delay: 0.4s; border-left-color: var(--blue); }
+        .rank-item:nth-child(9) { animation-delay: 0.45s; border-left-color: var(--gold); }
+
+        @keyframes itemSlideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .rank-item:hover {
+            transform: translateX(8px) scale(1.01);
+            background: rgba(0, 242, 255, 0.12);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Rank text styling */
+        .rank-item span:first-child {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--pearl);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .rank-item span:first-child i {
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+
+        .rank-item:hover span:first-child i {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        /* Top 3 special styling */
+        .rank-item:nth-child(1) span:first-child { font-size: 1.2rem; font-weight: 700; background: linear-gradient(135deg, var(--gold), #fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .rank-item:nth-child(2) span:first-child { font-size: 1.15rem; font-weight: 600; background: linear-gradient(135deg, var(--silver), #e8e8e8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .rank-item:nth-child(3) span:first-child { font-size: 1.12rem; font-weight: 600; background: linear-gradient(135deg, var(--bronze), #e8a87c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        /* RP points styling */
+        .rank-item span:last-child {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: monospace;
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 40px;
+            transition: all 0.3s;
+        }
+
+        /* Individual RP colors */
+        .rank-item:nth-child(1) span:last-child { color: var(--gold); text-shadow: 0 0 5px rgba(212, 175, 55, 0.5); }
+        .rank-item:nth-child(2) span:last-child { color: var(--silver); }
+        .rank-item:nth-child(3) span:last-child { color: var(--bronze); }
+        .rank-item:nth-child(4) span:last-child { color: var(--cyan); }
+        .rank-item:nth-child(5) span:last-child { color: var(--green); }
+        .rank-item:nth-child(6) span:last-child { color: var(--purple); }
+        .rank-item:nth-child(7) span:last-child { color: var(--coral); }
+        .rank-item:nth-child(8) span:last-child { color: var(--blue); }
+        .rank-item:nth-child(9) span:last-child { color: #ffd966; }
+
+        .rank-item:hover span:last-child {
+            transform: scale(1.05);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Pulsing effect for top 3 */
+        .rank-item:nth-child(1) {
+            animation: itemSlideIn 0.5s ease-out forwards, topRankGlow 2s infinite alternate;
+        }
+        .rank-item:nth-child(2) {
+            animation: itemSlideIn 0.5s ease-out forwards, topRankGlow 2s infinite alternate 0.3s;
+        }
+        .rank-item:nth-child(3) {
+            animation: itemSlideIn 0.5s ease-out forwards, topRankGlow 2s infinite alternate 0.6s;
+        }
+
+        @keyframes topRankGlow {
+            0% { box-shadow: 0 0 0px rgba(212, 175, 55, 0.2); }
+            100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        }
+
+        /* Crown icon special animation */
+        .rank-item:nth-child(1) span:first-child i {
+            animation: crownSpin 3s infinite ease-in-out;
+        }
+
+        @keyframes crownSpin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(5deg) scale(1.1); }
+        }
+
+        /* Medal icons animation */
+        .rank-item:nth-child(2) span:first-child i,
+        .rank-item:nth-child(3) span:first-child i {
+            animation: medalPulse 2s infinite alternate;
+        }
+
+        @keyframes medalPulse {
+            0% { filter: drop-shadow(0 0 2px currentColor); }
+            100% { filter: drop-shadow(0 0 8px currentColor); }
+        }
+
+        /* Responsive */
+        @media (max-width: 780px) {
+            #leaderboard-page section {
+                padding: 100px 20px 60px;
+            }
+            .rank-list {
+                padding: 15px 10px;
+            }
+            .rank-item {
+                padding: 12px 18px;
+            }
+            .rank-item span:first-child {
+                font-size: 0.9rem;
+            }
+            .rank-item span:last-child {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Scroll reveal animation for items */
+        @keyframes glowPulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Additional decorative elements */
+        .rank-list {
+            position: relative;
+        }
+
+        /* Corner accent */
+        .rank-list::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 50px;
+            height: 50px;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+            border-left: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px 0 0 0;
+            pointer-events: none;
+        }
+
+        .rank-list::after {
+            content: '';
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            border-bottom: 2px solid rgba(0, 242, 255, 0.3);
+            border-right: 2px solid rgba(0, 242, 255, 0.3);
+            border-radius: 0 0 15px 0;
+            pointer-events: none;
+        }
+
+        /* Rank badge effect on hover */
+        .rank-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rank-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.5s ease;
+            pointer-events: none;
+        }
+
+        .rank-item:hover::before {
+            left: 100%;
+        }
+    </style>
+
     <section style="padding: 120px 30px 80px;">
         <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-chart-simple"></i> GLOBAL ELITE RANKINGS</h2>
         <div class="rank-list" style="max-width: 900px; margin: 40px auto;">
@@ -440,8 +1272,503 @@
     </section>
 </div>
 
+<script>
+    (function() {
+        // Additional interactive effect: click on any rank item to show ranking info
+        const rankItems = document.querySelectorAll('.rank-item');
+        
+        function showRankToast(message) {
+            const existingToast = document.querySelector('.rank-toast');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'rank-toast';
+            toast.innerHTML = `<i class="fas fa-chart-line" style="margin-right: 10px; color: #00f2ff"></i> ${message}`;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%) scale(0.9);
+                background: linear-gradient(145deg, #12162e, #080c1c);
+                backdrop-filter: blur(20px);
+                color: #fff;
+                padding: 12px 28px;
+                border-radius: 60px;
+                font-weight: bold;
+                z-index: 999;
+                border-left: 5px solid #d4af37;
+                border-right: 5px solid #00f2ff;
+                box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+                font-size: 0.95rem;
+                animation: toastPopRank 0.4s ease forwards, fadeOutRank 0.5s ease 2.5s forwards;
+                pointer-events: none;
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes toastPopRank {
+                    0% { opacity: 0; transform: translateX(-50%) scale(0.7); }
+                    80% { transform: translateX(-50%) scale(1.02); }
+                    100% { opacity: 1; transform: translateX(-50%) scale(1); }
+                }
+                @keyframes fadeOutRank {
+                    to { opacity: 0; visibility: hidden; transform: translateX(-50%) scale(0.8); }
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                if (toast && toast.remove) toast.remove();
+            }, 2800);
+        }
+        
+        rankItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const playerName = item.querySelector('span:first-child').innerText.replace(/[0-9.]\s/, '').trim();
+                const rpPoints = item.querySelector('span:last-child').innerText;
+                showRankToast(`🏆 ${playerName} • ${rpPoints} RP • Global Rank #${index + 1}`);
+                
+                // Flash effect
+                item.style.transform = "scale(1.02)";
+                setTimeout(() => {
+                    item.style.transform = "";
+                }, 200);
+            });
+        });
+        
+        console.log("📊 Leaderboard — Global Elite Rankings with rich animations activated!");
+    })();
+</script>
+
 <!-- PAGE 4: ESPORTS / TOURNAMENTS -->
 <div id="esports-page" class="page">
+    <style>
+        /* ===== ENHANCED STYLES - BLUE, YELLOW, RED, GREEN, ORANGE, PURPLE, NEON PINK MIX ===== */
+        #esports-page {
+            --blue: #2d7aff;
+            --yellow: #ffea2d;
+            --red: #ff2d2d;
+            --green: #2eff7a;
+            --orange: #ff8c2d;
+            --purple: #b624ff;
+            --neonPink: #ff2d75;
+            --dark-bg: #0a0e1a;
+            position: relative;
+            background: radial-gradient(ellipse at 30% 20%, #0f1225, #05070f);
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background with all colors */
+        #esports-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 15% 25%, rgba(255, 45, 45, 0.12), transparent 45%),
+                        radial-gradient(circle at 85% 65%, rgba(45, 122, 255, 0.12), transparent 50%),
+                        radial-gradient(circle at 45% 80%, rgba(255, 234, 45, 0.1), transparent 55%),
+                        radial-gradient(circle at 70% 15%, rgba(182, 36, 255, 0.1), transparent 50%),
+                        radial-gradient(circle at 5% 50%, rgba(46, 255, 122, 0.08), transparent 60%),
+                        radial-gradient(circle at 95% 85%, rgba(255, 140, 45, 0.1), transparent 55%),
+                        radial-gradient(circle at 50% 50%, rgba(255, 45, 117, 0.08), transparent 60%);
+            animation: bgPulse 6s infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        #esports-page section {
+            position: relative;
+            z-index: 2;
+            animation: sectionSlideUp 0.6s ease-out;
+        }
+
+        @keyframes sectionSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Heading with all colors glow */
+        #esports-page h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 0 8px var(--red), 0 0 12px var(--blue), 0 0 5px var(--yellow);
+            letter-spacing: -0.5px;
+            animation: headingColorShift 4s infinite alternate;
+        }
+
+        @keyframes headingColorShift {
+            0% { text-shadow: 0 0 6px var(--red), 0 0 10px var(--blue); }
+            20% { text-shadow: 0 0 10px var(--yellow), 0 0 15px var(--orange); }
+            40% { text-shadow: 0 0 12px var(--green), 0 0 18px var(--neonPink); }
+            60% { text-shadow: 0 0 10px var(--purple), 0 0 15px var(--yellow); }
+            80% { text-shadow: 0 0 14px var(--orange), 0 0 20px var(--red); }
+            100% { text-shadow: 0 0 12px var(--neonPink), 0 0 18px var(--blue); }
+        }
+
+        #esports-page h2 i {
+            margin-right: 12px;
+            animation: iconRainbow 3s infinite;
+        }
+
+        @keyframes iconRainbow {
+            0%, 100% { transform: rotate(0deg) scale(1); color: var(--red); }
+            20% { color: var(--yellow); }
+            40% { color: var(--green); }
+            60% { color: var(--blue); }
+            80% { color: var(--purple); }
+            100% { transform: rotate(10deg) scale(1.1); color: var(--neonPink); }
+        }
+
+        /* esports grid */
+        .esports-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .esports-card {
+            background: linear-gradient(145deg, rgba(16, 22, 45, 0.92), rgba(8, 12, 30, 0.96));
+            backdrop-filter: blur(10px);
+            border-radius: 28px;
+            width: 280px;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            border: 1px solid;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
+            animation: cardBounce 4s infinite ease-in-out;
+            position: relative;
+        }
+
+        /* Different border colors for each card */
+        .esports-card:nth-child(1) { border-color: var(--red); animation-delay: 0s; }
+        .esports-card:nth-child(2) { border-color: var(--blue); animation-delay: 0.15s; }
+        .esports-card:nth-child(3) { border-color: var(--yellow); animation-delay: 0.3s; }
+        .esports-card:nth-child(4) { border-color: var(--purple); animation-delay: 0.45s; }
+
+        @keyframes cardBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+        }
+
+        .esports-card:hover {
+            transform: scale(1.05) translateY(-12px);
+            transition: all 0.3s ease;
+        }
+
+        /* Individual card hover glow with different colors */
+        .esports-card:nth-child(1):hover { box-shadow: 0 0 25px var(--red), 0 25px 40px -12px black; border-color: var(--red); }
+        .esports-card:nth-child(2):hover { box-shadow: 0 0 25px var(--blue), 0 25px 40px -12px black; border-color: var(--blue); }
+        .esports-card:nth-child(3):hover { box-shadow: 0 0 25px var(--yellow), 0 25px 40px -12px black; border-color: var(--yellow); }
+        .esports-card:nth-child(4):hover { box-shadow: 0 0 25px var(--purple), 0 25px 40px -12px black; border-color: var(--purple); }
+
+        .esports-card:hover .esports-content h3 i {
+            animation: iconSpin 0.4s ease;
+        }
+
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(12deg) scale(1.15); }
+        }
+
+        .esports-content {
+            padding: 28px 20px 30px;
+            text-align: center;
+        }
+
+        .esports-content h3 {
+            font-size: 1.55rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Different gradient text per card */
+        .esports-card:nth-child(1) .esports-content h3 { background: linear-gradient(135deg, #fff, var(--red)); -webkit-background-clip: text; background-clip: text; }
+        .esports-card:nth-child(2) .esports-content h3 { background: linear-gradient(135deg, #fff, var(--blue)); -webkit-background-clip: text; background-clip: text; }
+        .esports-card:nth-child(3) .esports-content h3 { background: linear-gradient(135deg, #fff, var(--yellow)); -webkit-background-clip: text; background-clip: text; }
+        .esports-card:nth-child(4) .esports-content h3 { background: linear-gradient(135deg, #fff, var(--purple)); -webkit-background-clip: text; background-clip: text; }
+
+        .esports-content h3 i {
+            margin-right: 8px;
+        }
+
+        /* Different icon colors per card */
+        .esports-card:nth-child(1) .esports-content h3 i { color: var(--red); text-shadow: 0 0 5px var(--red); }
+        .esports-card:nth-child(2) .esports-content h3 i { color: var(--blue); text-shadow: 0 0 5px var(--blue); }
+        .esports-card:nth-child(3) .esports-content h3 i { color: var(--yellow); text-shadow: 0 0 5px var(--yellow); }
+        .esports-card:nth-child(4) .esports-content h3 i { color: var(--purple); text-shadow: 0 0 5px var(--purple); }
+
+        .esports-content p {
+            color: #c5d0f0;
+            font-weight: 500;
+            background: rgba(0, 0, 0, 0.4);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Enhanced buttons with multi colors */
+        .btn {
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn i {
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.04);
+        }
+
+        .btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Individual register button colors - full spectrum */
+        .esports-card:nth-child(1) .register-esports { background: linear-gradient(95deg, var(--red), #cc0000, var(--orange)); box-shadow: 0 4px 14px rgba(255, 45, 45, 0.4); background-size: 150% auto; animation: btnRedGlow 2s infinite alternate; }
+        .esports-card:nth-child(1) .register-esports:hover { background: linear-gradient(95deg, #ff4444, #ff6600); box-shadow: 0 0 18px var(--red); }
+        
+        .esports-card:nth-child(2) .register-esports { background: linear-gradient(95deg, var(--blue), #0044cc, var(--cyan)); box-shadow: 0 4px 14px rgba(45, 122, 255, 0.4); background-size: 150% auto; animation: btnBlueGlow 2s infinite alternate; }
+        .esports-card:nth-child(2) .register-esports:hover { background: linear-gradient(95deg, #5599ff, #0088ff); box-shadow: 0 0 18px var(--blue); }
+        
+        .esports-card:nth-child(3) .register-esports { background: linear-gradient(95deg, var(--yellow), #ccaa00, var(--orange)); box-shadow: 0 4px 14px rgba(255, 234, 45, 0.4); color: #1a1a2e; animation: btnYellowGlow 2s infinite alternate; }
+        .esports-card:nth-child(3) .register-esports:hover { background: linear-gradient(95deg, #ffee55, #ffcc00); box-shadow: 0 0 18px var(--yellow); color: #000; }
+        
+        .esports-card:nth-child(4) .register-esports { background: linear-gradient(95deg, var(--purple), #6600aa, var(--neonPink)); box-shadow: 0 4px 14px rgba(182, 36, 255, 0.4); background-size: 150% auto; animation: btnPurpleGlow 2s infinite alternate; }
+        .esports-card:nth-child(4) .register-esports:hover { background: linear-gradient(95deg, #cc44ff, #ff44aa); box-shadow: 0 0 18px var(--purple); }
+
+        @keyframes btnRedGlow { 0% { box-shadow: 0 4px 14px rgba(255, 45, 45, 0.3); } 100% { box-shadow: 0 0 20px var(--red); } }
+        @keyframes btnBlueGlow { 0% { box-shadow: 0 4px 14px rgba(45, 122, 255, 0.3); } 100% { box-shadow: 0 0 20px var(--blue); } }
+        @keyframes btnYellowGlow { 0% { box-shadow: 0 4px 14px rgba(255, 234, 45, 0.3); } 100% { box-shadow: 0 0 20px var(--yellow); } }
+        @keyframes btnPurpleGlow { 0% { box-shadow: 0 4px 14px rgba(182, 36, 255, 0.3); } 100% { box-shadow: 0 0 20px var(--purple); } }
+
+        /* tournament zone - NEXT MAJOR with full spectrum */
+        .tournament-zone {
+            margin-top: 70px;
+            text-align: center;
+            background: rgba(5, 8, 18, 0.65);
+            backdrop-filter: blur(16px);
+            border-radius: 60px;
+            padding: 40px 25px;
+            border: 2px solid;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            animation: borderSpectrum 3s infinite alternate;
+        }
+
+        @keyframes borderSpectrum {
+            0% { border-color: var(--red); box-shadow: 0 0 15px var(--red); }
+            17% { border-color: var(--orange); box-shadow: 0 0 20px var(--orange); }
+            34% { border-color: var(--yellow); box-shadow: 0 0 25px var(--yellow); }
+            51% { border-color: var(--green); box-shadow: 0 0 25px var(--green); }
+            68% { border-color: var(--blue); box-shadow: 0 0 20px var(--blue); }
+            85% { border-color: var(--purple); box-shadow: 0 0 25px var(--purple); }
+            100% { border-color: var(--neonPink); box-shadow: 0 0 30px var(--neonPink); }
+        }
+
+        .tournament-zone::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, var(--red), var(--orange), var(--yellow), var(--green), var(--blue), var(--purple), var(--neonPink), var(--red));
+            opacity: 0.12;
+            animation: rotateSpectrum 12s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotateSpectrum {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .tournament-zone h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 8px var(--yellow), 0 0 12px var(--neonPink);
+            animation: zoneHeadingSpectrum 2s infinite alternate;
+        }
+
+        @keyframes zoneHeadingSpectrum {
+            0%, 100% { text-shadow: 0 0 5px var(--red), 0 0 10px var(--blue); }
+            25% { text-shadow: 0 0 10px var(--orange), 0 0 15px var(--purple); }
+            50% { text-shadow: 0 0 12px var(--yellow), 0 0 18px var(--green); }
+            75% { text-shadow: 0 0 15px var(--neonPink), 0 0 20px var(--blue); }
+        }
+
+        .tournament-zone h2 i {
+            animation: iconSpectrumPulse 1.5s infinite;
+        }
+
+        @keyframes iconSpectrumPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); color: var(--red); }
+            20% { color: var(--orange); }
+            40% { color: var(--yellow); }
+            60% { color: var(--green); }
+            80% { color: var(--blue); }
+            100% { transform: scale(1.2) rotate(5deg); color: var(--purple); }
+        }
+
+        /* Countdown box with spectrum effects */
+        .countdown-box {
+            font-size: 3.8rem;
+            font-weight: 800;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(145deg, #030617cc, #0a1028cc);
+            display: inline-block;
+            padding: 18px 40px;
+            border-radius: 70px;
+            letter-spacing: 6px;
+            margin: 20px 0;
+            border: 2px solid;
+            color: #e0f0ff;
+            backdrop-filter: blur(4px);
+            transition: all 0.2s;
+            animation: countdownSpectrum 1.8s infinite alternate;
+        }
+
+        @keyframes countdownSpectrum {
+            0% { border-color: var(--red); box-shadow: 0 0 8px var(--red); text-shadow: 0 0 4px var(--red); }
+            20% { border-color: var(--orange); box-shadow: 0 0 12px var(--orange); text-shadow: 0 0 5px var(--orange); }
+            40% { border-color: var(--yellow); box-shadow: 0 0 15px var(--yellow); text-shadow: 0 0 6px var(--yellow); }
+            60% { border-color: var(--green); box-shadow: 0 0 15px var(--green); text-shadow: 0 0 6px var(--green); }
+            80% { border-color: var(--blue); box-shadow: 0 0 12px var(--blue); text-shadow: 0 0 5px var(--blue); }
+            100% { border-color: var(--purple); box-shadow: 0 0 20px var(--purple); text-shadow: 0 0 8px var(--purple); }
+        }
+
+        /* Main register button with full gradient spectrum */
+        #registerBtn {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            padding: 14px 35px;
+            background: linear-gradient(95deg, var(--red), var(--orange), var(--yellow), var(--green), var(--blue), var(--purple), var(--neonPink));
+            background-size: 300% auto;
+            box-shadow: 0 0 18px rgba(255, 45, 45, 0.5);
+            animation: btnSpectrumShift 3s infinite alternate;
+        }
+
+        @keyframes btnSpectrumShift {
+            0% { background-position: 0% 50%; box-shadow: 0 0 12px var(--red); }
+            100% { background-position: 100% 50%; box-shadow: 0 0 25px var(--purple); }
+        }
+
+        #registerBtn i {
+            animation: shakeIcon 1s infinite;
+        }
+
+        @keyframes shakeIcon {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(3px); }
+            75% { transform: translateX(-3px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 780px) {
+            #esports-page section {
+                padding: 100px 20px 60px;
+            }
+            .esports-grid {
+                gap: 20px;
+            }
+            .countdown-box {
+                font-size: 2.3rem;
+                padding: 12px 20px;
+                letter-spacing: 3px;
+            }
+            #esports-page h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Toast notification with spectrum border */
+        .toast-notify {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: linear-gradient(145deg, #12162e, #080c1c);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: bold;
+            z-index: 999;
+            border-left: 5px solid var(--cyan);
+            border-right: 5px solid var(--pink);
+            border-top: 1px solid var(--yellow);
+            border-bottom: 1px solid var(--orange);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+            font-size: 1rem;
+            animation: toastPop 0.4s ease forwards, fadeOut 0.5s ease 2.5s forwards;
+            pointer-events: none;
+        }
+
+        @keyframes toastPop {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.7); }
+            80% { transform: translateX(-50%) scale(1.02); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; transform: translateX(-50%) scale(0.8); }
+        }
+
+        /* Card inner glow effect with spectrum */
+        .esports-card {
+            position: relative;
+        }
+
+        .esports-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .esports-card:nth-child(1):hover::after { opacity: 0.5; background: var(--red); filter: blur(8px); }
+        .esports-card:nth-child(2):hover::after { opacity: 0.5; background: var(--blue); filter: blur(8px); }
+        .esports-card:nth-child(3):hover::after { opacity: 0.5; background: var(--yellow); filter: blur(8px); }
+        .esports-card:nth-child(4):hover::after { opacity: 0.5; background: var(--purple); filter: blur(8px); }
+    </style>
+
     <section style="padding: 120px 50px 80px;">
         <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-trophy"></i> ESPORTS SCHEDULE</h2>
         <div class="esports-grid" style="margin-top: 50px;">
@@ -458,27 +1785,1043 @@
     </section>
 </div>
 
+<script>
+    (function() {
+        // Countdown timer for DevOps Cup 2026 - July 20
+        const targetDate = new Date(2026, 6, 20, 0, 0, 0);
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            if (distance < 0) {
+                document.getElementById('countdownDisplay').innerHTML = "🔥 LIVE NOW! 🔥";
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            let displayText = "";
+            if (days > 0) {
+                displayText = `${days}d ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+            } else {
+                displayText = `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+            }
+            const countdownElem = document.getElementById('countdownDisplay');
+            if (countdownElem) countdownElem.innerHTML = displayText;
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // Toast notification
+        function showToast(message) {
+            const existingToast = document.querySelector('.toast-notify');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast-notify';
+            toast.innerHTML = `<i class="fas fa-check-circle" style="margin-right: 10px; color: #2eff7a"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                if (toast && toast.remove) toast.remove();
+            }, 3000);
+        }
+        
+        // All register buttons
+        const allRegisterBtns = document.querySelectorAll('.register-esports');
+        allRegisterBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = this.closest('.esports-card');
+                let eventName = "Tournament";
+                if (card) {
+                    const titleElem = card.querySelector('h3');
+                    if (titleElem) eventName = titleElem.innerText.replace(/[^\w\s]/g, '').trim();
+                }
+                showToast(`✅ Registered for ${eventName}! Get ready to compete.`);
+                this.style.transform = "scale(0.96)";
+                setTimeout(() => { if(this) this.style.transform = ""; }, 150);
+            });
+        });
+        
+        // Main register button
+        const mainRegisterBtn = document.getElementById('registerBtn');
+        if (mainRegisterBtn) {
+            mainRegisterBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showToast(`🔥 MAJOR REGISTRATION OPEN! Secure your spot for DEVOPS CUP 2026. 🎮`);
+                const countdownBox = document.getElementById('countdownDisplay');
+                if (countdownBox) {
+                    countdownBox.style.transform = "scale(1.03)";
+                    setTimeout(() => { if(countdownBox) countdownBox.style.transform = ""; }, 300);
+                }
+                const zone = document.querySelector('.tournament-zone');
+                if (zone) {
+                    zone.style.transform = "scale(1.01)";
+                    setTimeout(() => { if(zone) zone.style.transform = ""; }, 300);
+                }
+            });
+        }
+        
+        // Countdown hover effect
+        const countdownEl = document.getElementById('countdownDisplay');
+        if (countdownEl) {
+            countdownEl.addEventListener('mouseenter', () => {
+                countdownEl.style.transform = "scale(1.02)";
+            });
+            countdownEl.addEventListener('mouseleave', () => {
+                countdownEl.style.transform = "scale(1)";
+            });
+        }
+        
+        // Card click flash effect
+        const allCards = document.querySelectorAll('.esports-card');
+        allCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                if(e.target.tagName === 'BUTTON' || e.target.closest('.register-esports')) return;
+                card.style.filter = "brightness(1.2)";
+                setTimeout(() => {
+                    if(card) card.style.filter = "";
+                }, 150);
+            });
+        });
+        
+        console.log("🎮 ESPORTS HUB — Full Spectrum: Blue, Yellow, Red, Green, Orange, Purple, Neon Pink Activated!");
+    })();
+</script>
+
 <!-- PAGE 5: SHOP (new) -->
+Here is the enhanced Merch & Products page with rich colors, dynamic animations, and engaging effects for each shop item.
+```html
 <div id="shop-page" class="page">
+    <style>
+        /* ===== MERCH & PRODUCTS - RICH COLORS & DYNAMIC ANIMATIONS ===== */
+        #shop-page {
+            --gold: #d4af37;
+            --cyan: #00f2ff;
+            --purple: #9b59b6;
+            --coral: #ff6b6b;
+            --green: #2eff7a;
+            --blue: #2d7aff;
+            --pink: #ff2d75;
+            --orange: #ff8c2d;
+            --pearl: #f5f0e8;
+            --teal: #20b2aa;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a14 0%, #0f0f1a 50%, #0a0a14 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated gradient background */
+        #shop-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.07) 0%, transparent 50%),
+                        radial-gradient(circle at 45% 80%, rgba(255, 45, 117, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(155, 89, 182, 0.07) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 60%, rgba(46, 255, 122, 0.05) 0%, transparent 50%);
+            animation: bgPulse 8s infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgPulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.03); }
+        }
+
+        /* Floating particles */
+        #shop-page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="15" cy="25" r="1.5" fill="%2300f2ff" opacity="0.4"/><circle cx="85" cy="55" r="1" fill="%23d4af37" opacity="0.35"/><circle cx="45" cy="75" r="1.2" fill="%23ff2d75" opacity="0.3"/><circle cx="70" cy="15" r="0.8" fill="%239b59b6" opacity="0.4"/><circle cx="90" cy="85" r="1.1" fill="%23ff6b6b" opacity="0.35"/><circle cx="25" cy="90" r="0.9" fill="%232d7aff" opacity="0.3"/><circle cx="55" cy="45" r="0.7" fill="%232eff7a" opacity="0.35"/></svg>');
+            background-repeat: repeat;
+            background-size: 100px 100px;
+            pointer-events: none;
+            opacity: 0.4;
+            animation: particleFloat 25s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes particleFloat {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        #shop-page section {
+            position: relative;
+            z-index: 2;
+            animation: sectionReveal 0.8s ease-out;
+        }
+
+        @keyframes sectionReveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Heading with elegant glow */
+        #shop-page h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--pearl);
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            animation: headingPulse 3s infinite alternate;
+        }
+
+        @keyframes headingPulse {
+            0% { text-shadow: 0 0 0px rgba(0, 242, 255, 0.3); }
+            100% { text-shadow: 0 0 18px rgba(212, 175, 55, 0.5), 0 0 8px rgba(0, 242, 255, 0.4); }
+        }
+
+        @media (max-width: 680px) {
+            #shop-page h2 {
+                font-size: 1.8rem;
+                white-space: normal;
+                width: 90%;
+            }
+        }
+
+        #shop-page h2 i {
+            margin-right: 12px;
+            color: var(--cyan);
+            font-size: 2.2rem;
+            vertical-align: middle;
+            animation: storeIcon 3s infinite alternate;
+        }
+
+        @keyframes storeIcon {
+            0% { transform: scale(1); color: var(--cyan); }
+            100% { transform: scale(1.1); color: var(--gold); }
+        }
+
+        /* Animated underline */
+        #shop-page h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 15%;
+            width: 70%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), var(--gold), var(--pink), transparent);
+            border-radius: 2px;
+            animation: underlineShift 3s infinite alternate;
+            background-size: 200% auto;
+        }
+
+        @keyframes underlineShift {
+            0% { background-position: 0% 50%; width: 60%; left: 20%; }
+            100% { background-position: 100% 50%; width: 70%; left: 15%; }
+        }
+
+        /* Shop grid */
+        .shop-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 35px;
+            margin-top: 60px;
+        }
+
+        /* Shop item card */
+        .shop-item {
+            width: 280px;
+            background: rgba(15, 20, 35, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            border: 1px solid rgba(0, 242, 255, 0.25);
+            box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: cardFloat 5s infinite ease-in-out;
+            cursor: pointer;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* Staggered animation delays */
+        .shop-item:nth-child(1) { animation-delay: 0s; }
+        .shop-item:nth-child(2) { animation-delay: 0.15s; }
+        .shop-item:nth-child(3) { animation-delay: 0.3s; }
+        .shop-item:nth-child(4) { animation-delay: 0.45s; }
+
+        /* Individual card border colors */
+        .shop-item:nth-child(1) { border-top: 3px solid var(--cyan); }
+        .shop-item:nth-child(2) { border-top: 3px solid var(--purple); }
+        .shop-item:nth-child(3) { border-top: 3px solid var(--gold); }
+        .shop-item:nth-child(4) { border-top: 3px solid var(--pink); }
+
+        .shop-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            border: 1px solid rgba(0, 242, 255, 0.5);
+            transition: all 0.35s ease;
+        }
+
+        /* Hover glow per card */
+        .shop-item:nth-child(1):hover { box-shadow: 0 0 30px rgba(0, 242, 255, 0.35), 0 25px 40px -15px black; }
+        .shop-item:nth-child(2):hover { box-shadow: 0 0 30px rgba(155, 89, 182, 0.35), 0 25px 40px -15px black; }
+        .shop-item:nth-child(3):hover { box-shadow: 0 0 30px rgba(212, 175, 55, 0.35), 0 25px 40px -15px black; }
+        .shop-item:nth-child(4):hover { box-shadow: 0 0 30px rgba(255, 45, 117, 0.35), 0 25px 40px -15px black; }
+
+        /* Card shine effect */
+        .shop-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .shop-item:hover::before {
+            left: 150%;
+        }
+
+        /* Card images */
+        .shop-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: all 0.4s ease;
+            filter: brightness(0.9) saturate(1.05);
+        }
+
+        .shop-item:hover img {
+            transform: scale(1.03);
+            filter: brightness(1) saturate(1.15);
+        }
+
+        /* Shop content */
+        .shop-content {
+            padding: 20px 18px 25px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .shop-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Gradient text per card */
+        .shop-item:nth-child(1) .shop-content h3 { background: linear-gradient(135deg, var(--pearl), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .shop-item:nth-child(2) .shop-content h3 { background: linear-gradient(135deg, var(--pearl), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .shop-item:nth-child(3) .shop-content h3 { background: linear-gradient(135deg, var(--pearl), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .shop-item:nth-child(4) .shop-content h3 { background: linear-gradient(135deg, var(--pearl), var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        .shop-content p {
+            color: #b8b8d0;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            transition: all 0.3s;
+        }
+
+        .shop-item:hover .shop-content p {
+            color: var(--pearl);
+        }
+
+        /* Price styling */
+        .shop-content span {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: monospace;
+            letter-spacing: 1px;
+            padding: 5px 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 40px;
+            transition: all 0.3s;
+        }
+
+        .shop-item:nth-child(1) .shop-content span { color: var(--cyan); text-shadow: 0 0 5px rgba(0, 242, 255, 0.3); }
+        .shop-item:nth-child(2) .shop-content span { color: var(--purple); text-shadow: 0 0 5px rgba(155, 89, 182, 0.3); }
+        .shop-item:nth-child(3) .shop-content span { color: var(--gold); text-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
+        .shop-item:nth-child(4) .shop-content span { color: var(--pink); text-shadow: 0 0 5px rgba(255, 45, 117, 0.3); }
+
+        .shop-item:hover .shop-content span {
+            transform: scale(1.05);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Buy button styling */
+        .buy-btn {
+            background: linear-gradient(95deg, var(--cyan), var(--blue));
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
+        }
+
+        .shop-item:nth-child(1) .buy-btn { background: linear-gradient(95deg, var(--cyan), #0066cc); }
+        .shop-item:nth-child(2) .buy-btn { background: linear-gradient(95deg, var(--purple), #6600aa); }
+        .shop-item:nth-child(3) .buy-btn { background: linear-gradient(95deg, var(--gold), #aa8800); }
+        .shop-item:nth-child(4) .buy-btn { background: linear-gradient(95deg, var(--pink), #cc0055); }
+
+        .buy-btn i {
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        .buy-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Corner accent for each card */
+        .shop-item {
+            position: relative;
+        }
+
+        .shop-item::after {
+            content: '';
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 25px;
+            height: 25px;
+            border-bottom: 2px solid;
+            border-right: 2px solid;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: scale(0.8);
+        }
+
+        .shop-item:nth-child(1)::after { border-color: var(--cyan); }
+        .shop-item:nth-child(2)::after { border-color: var(--purple); }
+        .shop-item:nth-child(3)::after { border-color: var(--gold); }
+        .shop-item:nth-child(4)::after { border-color: var(--pink); }
+
+        .shop-item:hover::after {
+            opacity: 0.7;
+            transform: scale(1);
+        }
+
+        /* Responsive */
+        @media (max-width: 780px) {
+            #shop-page section {
+                padding: 100px 20px 60px;
+            }
+            .shop-grid {
+                gap: 25px;
+            }
+            .shop-item {
+                width: 260px;
+            }
+        }
+
+        /* Toast notification */
+        .shop-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: linear-gradient(145deg, #12162e, #080c1c);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 60px;
+            font-weight: bold;
+            z-index: 999;
+            border-left: 5px solid;
+            border-right: 5px solid;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+            font-size: 0.95rem;
+            animation: toastPopShop 0.4s ease forwards, fadeOutShop 0.5s ease 3s forwards;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 550px) {
+            .shop-toast {
+                white-space: normal;
+                max-width: 300px;
+                text-align: center;
+                line-height: 1.4;
+            }
+        }
+
+        @keyframes toastPopShop {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.7); }
+            80% { transform: translateX(-50%) scale(1.02); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+
+        @keyframes fadeOutShop {
+            to { opacity: 0; visibility: hidden; transform: translateX(-50%) scale(0.8); }
+        }
+    </style>
+
     <section style="padding: 120px 50px 80px;">
-        <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-store"></i> MERCH & PRODUCTS </h2>
+        <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-store"></i> MERCH & PRODUCTS</h2>
         <div class="shop-grid">
-            <div class="shop-item"><img src="https://static.vecteezy.com/system/resources/thumbnails/008/925/635/small/wonderful-and-bizarre-t-shirt-sports-abstract-jersey-suitable-for-racing-soccer-gaming-motocross-gaming-cycling-free-vector.jpg" alt="Tshirt"><div class="shop-content"><h3>Cyber Jersey</h3><p>Limited edition neon jersey</p><span style="color:#00e0ff;">₹2000</span><button class="btn buy-btn" style="margin-top: 12px;">Buy Now</button></div></div>
-            <div class="shop-item"><img src="https://www.gadgetmatch.com/wp-content/uploads/2024/03/Quake_2-Landscape-White-6-logitech-2024031.jpg" alt="Headset"><div class="shop-content"><h3>Gaming Headset</h3><p>7.1 Surround RGB</p><span style="color:#00e0ff;">₹8000</span><button class="btn buy-btn">Buy Now</button></div></div>
-            <div class="shop-item"><img src="https://i.pinimg.com/736x/b0/8b/10/b08b104496ca361c4d3aec68b83c7f60.jpg" alt="Mousepad"><div class="shop-content"><h3>Gaming Mousepad</h3><p>Extended RGB mat</p><span style="color:#00e0ff;">₹900</span><button class="btn buy-btn">Buy Now</button></div></div>
-            <div class="shop-item"><img src="https://i.extremetech.com/imagery/content-types/00hygCJbhhvWfYz79pKTe4x/hero-image.fit_lim.v1678673392.jpg" alt="Skin"><div class="shop-content"><h3>Gaming Keyboard</h3><p>Exclusive skin</p><span style="color:#00e0ff;">₹4000</span><button class="btn buy-btn">Buy Now</button></div></div>
+            <div class="shop-item">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/008/925/635/small/wonderful-and-bizarre-t-shirt-sports-abstract-jersey-suitable-for-racing-soccer-gaming-motocross-gaming-cycling-free-vector.jpg" alt="Tshirt">
+                <div class="shop-content">
+                    <h3>Cyber Jersey</h3>
+                    <p>Limited edition neon jersey</p>
+                    <span>₹2000</span>
+                    <button class="btn buy-btn"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+                </div>
+            </div>
+            <div class="shop-item">
+                <img src="https://www.gadgetmatch.com/wp-content/uploads/2024/03/Quake_2-Landscape-White-6-logitech-2024031.jpg" alt="Headset">
+                <div class="shop-content">
+                    <h3>Gaming Headset</h3>
+                    <p>7.1 Surround RGB</p>
+                    <span>₹8000</span>
+                    <button class="btn buy-btn"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+                </div>
+            </div>
+            <div class="shop-item">
+                <img src="https://i.pinimg.com/736x/b0/8b/10/b08b104496ca361c4d3aec68b83c7f60.jpg" alt="Mousepad">
+                <div class="shop-content">
+                    <h3>Gaming Mousepad</h3>
+                    <p>Extended RGB mat</p>
+                    <span>₹900</span>
+                    <button class="btn buy-btn"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+                </div>
+            </div>
+            <div class="shop-item">
+                <img src="https://i.extremetech.com/imagery/content-types/00hygCJbhhvWfYz79pKTe4x/hero-image.fit_lim.v1678673392.jpg" alt="Keyboard">
+                <div class="shop-content">
+                    <h3>Gaming Keyboard</h3>
+                    <p>Mechanical RGB skin</p>
+                    <span>₹4000</span>
+                    <button class="btn buy-btn"><i class="fas fa-shopping-cart"></i> Buy Now</button>
+                </div>
+            </div>
         </div>
     </section>
 </div>
 
+<script>
+    (function() {
+        // Interactive toast for shop items
+        const shopItems = document.querySelectorAll('.shop-item');
+        const colors = ['#00f2ff', '#9b59b6', '#d4af37', '#ff2d75'];
+        
+        function showShopToast(productName, price, colorIndex) {
+            const existingToast = document.querySelector('.shop-toast');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'shop-toast';
+            const borderColor = colors[colorIndex % colors.length];
+            toast.style.borderLeftColor = borderColor;
+            toast.style.borderRightColor = borderColor;
+            
+            toast.innerHTML = `<i class="fas fa-check-circle" style="margin-right: 10px; color: ${borderColor}"></i> 🛒 Added to cart: ${productName} - ${price}`;
+            
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                if (toast && toast.remove) toast.remove();
+            }, 3000);
+        }
+        
+        // Add to cart functionality for all buy buttons
+        const buyBtns = document.querySelectorAll('.buy-btn');
+        buyBtns.forEach((btn, idx) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const shopItem = btn.closest('.shop-item');
+                const productName = shopItem.querySelector('h3')?.innerText || 'Product';
+                const price = shopItem.querySelector('span')?.innerText || '₹0';
+                showShopToast(productName, price, idx);
+                
+                // Button click animation
+                btn.style.transform = "scale(0.95)";
+                setTimeout(() => {
+                    btn.style.transform = "";
+                }, 150);
+                
+                // Ripple effect on card
+                shopItem.style.transform = "scale(0.99)";
+                setTimeout(() => {
+                    shopItem.style.transform = "";
+                }, 200);
+            });
+        });
+        
+        // Card click effect (optional)
+        shopItems.forEach((item, idx) => {
+            item.addEventListener('click', (e) => {
+                if (e.target.classList.contains('buy-btn') || e.target.closest('.buy-btn')) return;
+                const productName = item.querySelector('h3')?.innerText || 'Product';
+                const price = item.querySelector('span')?.innerText || '₹0';
+                showShopToast(`✨ ${productName} - ${price}`, price, idx);
+            });
+        });
+        
+        console.log("🛍️ Shop Page — Rich colors and animations activated!");
+    })();
+</script>
+```
+
 <!-- PAGE 6: HALL OF FAME -->
 <div id="halloffame-page" class="page">
+    <style>
+        /* ===== HALL OF FAME - ELEGANT WITH RICH COLORS & DYNAMIC EFFECTS ===== */
+        #halloffame-page {
+            --gold: #d4af37;
+            --ruby: #c41e3a;
+            --sapphire: #0f52ba;
+            --emerald: #2e8b57;
+            --amethyst: #9b59b6;
+            --rose: #e75480;
+            --pearl: #f5f0e8;
+            --bronze: #cd7f32;
+            --platinum: #e5e4e2;
+            --teal: #20b2aa;
+            --coral: #ff6b6b;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a14 0%, #12121f 50%, #0a0a14 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated gradient orbs background */
+        #halloffame-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(196, 30, 58, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(15, 82, 186, 0.09) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(155, 89, 182, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 45%, rgba(46, 139, 87, 0.07) 0%, transparent 50%);
+            animation: bgOrbMove 12s infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgOrbMove {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Floating particles animation */
+        #halloffame-page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="20" r="1.5" fill="%23d4af37" opacity="0.5"/><circle cx="85" cy="45" r="1" fill="%23c41e3a" opacity="0.4"/><circle cx="50" cy="80" r="1.2" fill="%230f52ba" opacity="0.45"/><circle cx="30" cy="60" r="0.8" fill="%239b59b6" opacity="0.4"/><circle cx="70" cy="15" r="1.3" fill="%23e75480" opacity="0.35"/><circle cx="92" cy="75" r="0.9" fill="%232e8b57" opacity="0.4"/><circle cx="15" cy="85" r="1.1" fill="%23ff6b6b" opacity="0.3"/></svg>');
+            background-repeat: repeat;
+            background-size: 120px 120px;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: particleDrift 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes particleDrift {
+            0% { background-position: 0 0; }
+            100% { background-position: 120px 120px; }
+        }
+
+        #halloffame-page section {
+            position: relative;
+            z-index: 2;
+            animation: sectionReveal 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        @keyframes sectionReveal {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Elegant heading with rich glow */
+        #halloffame-page h2 {
+            font-size: 2.6rem;
+            text-align: center;
+            font-weight: 500;
+            color: var(--pearl);
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            animation: headingGlow 3s infinite alternate;
+        }
+
+        @keyframes headingGlow {
+            0% { text-shadow: 0 0 0px rgba(212, 175, 55, 0.3); }
+            100% { text-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 0 8px rgba(196, 30, 58, 0.4); }
+        }
+
+        @media (max-width: 680px) {
+            #halloffame-page h2 {
+                font-size: 1.8rem;
+                white-space: normal;
+                width: 90%;
+            }
+        }
+
+        #halloffame-page h2 i {
+            margin-right: 12px;
+            color: var(--gold);
+            font-size: 2.2rem;
+            vertical-align: middle;
+            animation: starRotate 4s infinite ease-in-out;
+        }
+
+        @keyframes starRotate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(10deg) scale(1.15); color: var(--coral); }
+        }
+
+        /* Animated underline with gradient flow */
+        #halloffame-page h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 15%;
+            width: 70%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--ruby), var(--sapphire), var(--amethyst), var(--emerald), transparent);
+            border-radius: 2px;
+            animation: underlineFlow 3s infinite alternate;
+            background-size: 200% auto;
+        }
+
+        @keyframes underlineFlow {
+            0% { background-position: 0% 50%; width: 60%; left: 20%; }
+            100% { background-position: 100% 50%; width: 70%; left: 15%; }
+        }
+
+        /* Hall grid */
+        .hall-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 70px;
+        }
+
+        /* Elegant cards with rich animations */
+        .hall-card {
+            background: rgba(20, 20, 35, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            width: 270px;
+            transition: all 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            animation: cardFloat 5s infinite ease-in-out;
+        }
+
+        /* Card float animation with different delays */
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .hall-card:nth-child(1) { animation-delay: 0s; }
+        .hall-card:nth-child(2) { animation-delay: 0.2s; }
+        .hall-card:nth-child(3) { animation-delay: 0.4s; }
+        .hall-card:nth-child(4) { animation-delay: 0.6s; }
+
+        /* Rich card accent borders */
+        .hall-card:nth-child(1) { border-top: 3px solid var(--gold); border-left: 1px solid rgba(212, 175, 55, 0.4); }
+        .hall-card:nth-child(2) { border-top: 3px solid var(--sapphire); border-left: 1px solid rgba(15, 82, 186, 0.4); }
+        .hall-card:nth-child(3) { border-top: 3px solid var(--ruby); border-left: 1px solid rgba(196, 30, 58, 0.4); }
+        .hall-card:nth-child(4) { border-top: 3px solid var(--amethyst); border-left: 1px solid rgba(155, 89, 182, 0.4); }
+
+        /* Hover effects with rich glow */
+        .hall-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            transition: all 0.35s ease;
+        }
+
+        /* Hover glow per card - rich colors */
+        .hall-card:nth-child(1):hover { box-shadow: 0 0 35px rgba(212, 175, 55, 0.4), 0 25px 45px -15px black; }
+        .hall-card:nth-child(2):hover { box-shadow: 0 0 35px rgba(15, 82, 186, 0.45), 0 25px 45px -15px black; }
+        .hall-card:nth-child(3):hover { box-shadow: 0 0 35px rgba(196, 30, 58, 0.4), 0 25px 45px -15px black; }
+        .hall-card:nth-child(4):hover { box-shadow: 0 0 35px rgba(155, 89, 182, 0.4), 0 25px 45px -15px black; }
+
+        /* Card shine effect */
+        .hall-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), rgba(212, 175, 55, 0.05), transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hall-card:hover::before {
+            left: 150%;
+        }
+
+        /* Card content */
+        .card-content {
+            padding: 32px 20px 35px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Title with rich gradient text */
+        .card-content h3 {
+            font-size: 1.45rem;
+            margin-bottom: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .hall-card:nth-child(1) .card-content h3 { background: linear-gradient(135deg, var(--pearl), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hall-card:nth-child(2) .card-content h3 { background: linear-gradient(135deg, var(--pearl), #6bb5ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hall-card:nth-child(3) .card-content h3 { background: linear-gradient(135deg, var(--pearl), #e89f9f); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hall-card:nth-child(4) .card-content h3 { background: linear-gradient(135deg, var(--pearl), #d4a5f0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        /* Icon animations with rich colors */
+        .card-content h3 i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .hall-card:nth-child(1) .card-content h3 i { color: var(--gold); }
+        .hall-card:nth-child(2) .card-content h3 i { color: #6bb5ff; }
+        .hall-card:nth-child(3) .card-content h3 i { color: #e89f9f; }
+        .hall-card:nth-child(4) .card-content h3 i { color: #d4a5f0; }
+
+        .hall-card:hover .card-content h3 i {
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* Description badge with rich border */
+        .card-content p {
+            color: #c8c8e0;
+            font-weight: 400;
+            background: rgba(0, 0, 0, 0.4);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.82rem;
+            letter-spacing: 0.3px;
+            margin-bottom: 22px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s;
+        }
+
+        .hall-card:hover .card-content p {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: rgba(212, 175, 55, 0.35);
+            color: var(--pearl);
+        }
+
+        /* Award icons with rich animations */
+        .card-content i:last-child {
+            font-size: 2.2rem;
+            display: inline-block;
+            margin-top: 10px;
+            transition: all 0.35s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Rich icon colors */
+        .hall-card:nth-child(1) .card-content i:last-child { color: var(--gold); }
+        .hall-card:nth-child(2) .card-content i:last-child { color: #7cb8e0; }
+        .hall-card:nth-child(3) .card-content i:last-child { color: #e08e6b; }
+        .hall-card:nth-child(4) .card-content i:last-child { color: #d4a5f0; }
+
+        /* Icon bouncing and glowing animation */
+        .card-content i:last-child {
+            animation: iconRichBounce 3s infinite ease-in-out;
+        }
+
+        @keyframes iconRichBounce {
+            0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); }
+            50% { transform: translateY(-6px) scale(1.1); filter: drop-shadow(0 10px 15px rgba(212, 175, 55, 0.35)); }
+        }
+
+        .hall-card:hover .card-content i:last-child {
+            animation: iconCelebrate 0.5s ease;
+        }
+
+        @keyframes iconCelebrate {
+            0% { transform: scale(1) rotate(0deg); }
+            30% { transform: scale(1.35) rotate(-10deg); }
+            60% { transform: scale(1.35) rotate(10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* Card inner glow on hover */
+        .hall-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--ruby), var(--sapphire), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .hall-card:hover::after {
+            opacity: 0.7;
+        }
+
+        /* Corner accent animation for each card */
+        .card-content::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-top: 2px solid;
+            border-right: 2px solid;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: scale(0.8);
+        }
+
+        .hall-card:nth-child(1) .card-content::before { border-top-color: var(--gold); border-right-color: var(--gold); }
+        .hall-card:nth-child(2) .card-content::before { border-top-color: var(--sapphire); border-right-color: var(--sapphire); }
+        .hall-card:nth-child(3) .card-content::before { border-top-color: var(--ruby); border-right-color: var(--ruby); }
+        .hall-card:nth-child(4) .card-content::before { border-top-color: var(--amethyst); border-right-color: var(--amethyst); }
+
+        .hall-card:hover .card-content::before {
+            opacity: 0.7;
+            transform: scale(1);
+        }
+
+        /* Card content positioning */
+        .card-content {
+            position: relative;
+        }
+
+        /* Responsive */
+        @media (max-width: 780px) {
+            #halloffame-page section {
+                padding: 100px 20px 60px;
+            }
+            .hall-grid {
+                gap: 25px;
+            }
+            .card-content h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Fade-up on scroll animation */
+        @keyframes fadeUpRich {
+            from { opacity: 0; transform: translateY(35px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hall-card {
+            animation: cardFloat 5s ease-in-out infinite, fadeUpRich 0.7s ease-out forwards;
+            opacity: 0;
+        }
+
+        .hall-card:nth-child(1) { animation-delay: 0s, 0s; }
+        .hall-card:nth-child(2) { animation-delay: 0.2s, 0.1s; }
+        .hall-card:nth-child(3) { animation-delay: 0.4s, 0.2s; }
+        .hall-card:nth-child(4) { animation-delay: 0.6s, 0.3s; }
+
+        /* Additional sparkle effect on cards */
+        .hall-card .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .hall-card:hover .sparkle {
+            opacity: 0.8;
+            animation: sparkleFlash 1s ease-in-out;
+        }
+
+        @keyframes sparkleFlash {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.5); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+    </style>
+
     <section style="padding: 120px 30px 80px;">
         <h2 style="font-size: 2.8rem; text-align: center;"><i class="fas fa-star"></i> LEGENDS HALL OF FAME</h2>
         <div class="hall-grid" style="margin-top: 50px;">
-            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-user-astronaut"></i> AXL IS LIVE</h3><p>3x DevOps Cup Champion | 2025 MVP</p><i class="fas fa-trophy" style="color: gold;"></i></div></div>
-            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-user-ninja"></i> H SUNFLOWER</h3><p>Undefeated BGMI Legend | 2025 Winner</p><i class="fas fa-crown" style="color: cyan;"></i></div></div>
-            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-user-secret"></i> H PUNISHER</h3><p>Most Kills Record | 2x MVP</p><i class="fas fa-fire" style="color: orange;"></i></div></div>
+            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-user-astronaut"></i> AXL IS LIVE</h3><p>3x DevOps Cup Champion | 2025 MVP</p><i class="fas fa-trophy"></i></div></div>
+            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-user-ninja"></i> H SUNFLOWER</h3><p>Undefeated BGMI Legend | 2025 Winner</p><i class="fas fa-crown"></i></div></div>
+            <div class="hall-card"><div class="card-content"><h3><i class="fas fa-user-secret"></i> H PUNISHER</h3><p>Most Kills Record | 2x MVP</p><i class="fas fa-fire"></i></div></div>
             <div class="hall-card"><div class="card-content"><h3><i class="fas fa-robot"></i> ULTRA INSTINCT</h3><p>Hall of Fame Inductee 2025</p><i class="fas fa-gem"></i></div></div>
         </div>
     </section>
@@ -486,22 +2829,484 @@
 
 <!-- PAGE 7: SUPPORT -->
 <div id="support-page" class="page">
+    <style>
+        /* ===== SUPPORT HUB - THEMED WITH RICH COLORS & ANIMATIONS ===== */
+        #support-page {
+            --gold: #d4af37;
+            --cyan: #00f2ff;
+            --blue: #2d7aff;
+            --purple: #9b59b6;
+            --coral: #ff6b6b;
+            --green: #2eff7a;
+            --pearl: #f5f0e8;
+            --dark-card: rgba(15, 20, 35, 0.85);
+            position: relative;
+            background: linear-gradient(135deg, #0a0a14 0%, #0f0f1a 50%, #0a0a14 100%);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated gradient background */
+        #support-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(155, 89, 182, 0.07) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 85%, rgba(46, 255, 122, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 60%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            animation: bgPulse 8s infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes bgPulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.03); }
+        }
+
+        /* Floating particles */
+        #support-page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="15" cy="25" r="1.5" fill="%2300f2ff" opacity="0.4"/><circle cx="85" cy="55" r="1" fill="%239b59b6" opacity="0.35"/><circle cx="45" cy="75" r="1.2" fill="%232eff7a" opacity="0.3"/><circle cx="70" cy="15" r="0.8" fill="%23d4af37" opacity="0.4"/><circle cx="90" cy="85" r="1.1" fill="%23ff6b6b" opacity="0.35"/><circle cx="25" cy="90" r="0.9" fill="%232d7aff" opacity="0.3"/></svg>');
+            background-repeat: repeat;
+            background-size: 100px 100px;
+            pointer-events: none;
+            opacity: 0.4;
+            animation: particleFloat 25s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes particleFloat {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+        #support-page section {
+            position: relative;
+            z-index: 2;
+            animation: sectionReveal 0.8s ease-out;
+        }
+
+        @keyframes sectionReveal {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Heading with elegant glow */
+        #support-page h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            font-weight: 500;
+            color: var(--pearl);
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            animation: headingPulse 3s infinite alternate;
+        }
+
+        @keyframes headingPulse {
+            0% { text-shadow: 0 0 0px rgba(0, 242, 255, 0.3); }
+            100% { text-shadow: 0 0 15px rgba(0, 242, 255, 0.5), 0 0 8px rgba(155, 89, 182, 0.4); }
+        }
+
+        @media (max-width: 680px) {
+            #support-page h2 {
+                font-size: 1.8rem;
+                white-space: normal;
+                width: 90%;
+            }
+        }
+
+        #support-page h2 i {
+            margin-right: 12px;
+            color: var(--cyan);
+            font-size: 2rem;
+            vertical-align: middle;
+            animation: headsetWiggle 4s infinite ease-in-out;
+        }
+
+        @keyframes headsetWiggle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-8deg) scale(1.1); color: var(--cyan); }
+            75% { transform: rotate(8deg) scale(1.1); color: var(--purple); }
+        }
+
+        /* Animated underline */
+        #support-page h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 20%;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), var(--gold), transparent);
+            border-radius: 2px;
+            animation: underlineShift 3s infinite alternate;
+            background-size: 200% auto;
+        }
+
+        @keyframes underlineShift {
+            0% { background-position: 0% 50%; width: 55%; left: 22.5%; }
+            100% { background-position: 100% 50%; width: 65%; left: 17.5%; }
+        }
+
+        /* Main card container */
+        .support-card {
+            background: var(--dark-card);
+            backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 40px;
+            margin-top: 40px;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            box-shadow: 0 25px 45px -20px rgba(0, 0, 0, 0.6);
+            transition: all 0.4s ease;
+            animation: cardGlow 4s infinite alternate;
+        }
+
+        @keyframes cardGlow {
+            0% { border-color: rgba(0, 242, 255, 0.2); box-shadow: 0 25px 45px -20px rgba(0, 0, 0, 0.6); }
+            100% { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 25px 45px -15px rgba(0, 242, 255, 0.2); }
+        }
+
+        .support-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 242, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        /* Contact info items */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 60px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: itemFadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .contact-item:nth-child(1) { animation-delay: 0.1s; }
+        .contact-item:nth-child(2) { animation-delay: 0.2s; }
+        .contact-item:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes itemFadeIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .contact-item:hover {
+            transform: translateX(8px);
+            background: rgba(0, 242, 255, 0.1);
+            border-color: rgba(0, 242, 255, 0.3);
+        }
+
+        .contact-item i {
+            font-size: 1.6rem;
+            width: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .contact-item:nth-child(1) i { color: var(--coral); }
+        .contact-item:nth-child(2) i { color: var(--purple); }
+        .contact-item:nth-child(3) i { color: var(--cyan); }
+
+        .contact-item:hover i {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 5px currentColor);
+        }
+
+        .contact-item span {
+            color: var(--pearl);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Divider */
+        .support-divider {
+            margin: 25px 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), var(--gold), transparent);
+            animation: dividerPulse 3s infinite alternate;
+        }
+
+        @keyframes dividerPulse {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        /* FAQ Section */
+        .faq-title {
+            font-size: 1.8rem;
+            margin: 20px 0 25px 0;
+            text-align: center;
+            color: var(--pearl);
+            letter-spacing: 1px;
+        }
+
+        .faq-title i {
+            margin-right: 10px;
+            color: var(--gold);
+            animation: faqIconSpin 3s infinite;
+        }
+
+        @keyframes faqIconSpin {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .faq-item {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 20px;
+            padding: 18px 22px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            border-left: 3px solid;
+            animation: faqSlideIn 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .faq-item:nth-child(1) { animation-delay: 0.4s; border-left-color: var(--cyan); }
+        .faq-item:nth-child(2) { animation-delay: 0.5s; border-left-color: var(--gold); }
+
+        @keyframes faqSlideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .faq-item:hover {
+            transform: translateX(5px);
+            background: rgba(0, 242, 255, 0.08);
+        }
+
+        .faq-item strong {
+            color: var(--cyan);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .faq-item strong i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+
+        .faq-item p {
+            color: #c8c8e0;
+            font-size: 0.9rem;
+            margin: 0;
+            padding-left: 24px;
+        }
+
+        /* Button styling */
+        .support-btn {
+            margin-top: 25px;
+            width: 100%;
+            background: linear-gradient(95deg, var(--cyan), var(--blue), var(--purple));
+            background-size: 200% auto;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            animation: btnGradientShift 3s infinite alternate;
+        }
+
+        @keyframes btnGradientShift {
+            0% { background-position: 0% 50%; box-shadow: 0 0 10px var(--cyan); }
+            100% { background-position: 100% 50%; box-shadow: 0 0 20px var(--purple); }
+        }
+
+        .support-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px var(--cyan);
+        }
+
+        .support-btn i {
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .support-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Toast notification */
+        .toast-notify-support {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: linear-gradient(145deg, #12162e, #080c1c);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: bold;
+            z-index: 999;
+            border-left: 5px solid var(--cyan);
+            border-right: 5px solid var(--gold);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+            font-size: 1rem;
+            animation: toastPop 0.4s ease forwards, fadeOut 0.5s ease 3s forwards;
+            pointer-events: none;
+        }
+
+        @keyframes toastPop {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.7); }
+            80% { transform: translateX(-50%) scale(1.02); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; transform: translateX(-50%) scale(0.8); }
+        }
+
+        /* Responsive */
+        @media (max-width: 780px) {
+            #support-page section {
+                padding: 100px 20px 60px;
+            }
+            .support-card {
+                padding: 25px;
+            }
+            .contact-item span {
+                font-size: 0.85rem;
+            }
+            .faq-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+
     <section style="padding: 120px 30px 80px; max-width: 800px; margin: 0 auto;">
         <h2 style="font-size: 2.5rem; text-align: center;"><i class="fas fa-headset"></i> 24/7 SUPPORT HUB</h2>
-        <div style="background: rgba(0,0,0,0.6); border-radius: 48px; padding: 40px; margin-top: 40px;">
+        <div class="support-card">
             <div style="display: flex; gap: 20px; flex-direction: column;">
-                <div><i class="fas fa-envelope"></i> support@devopsgaming.com</div>
-                <div><i class="fab fa-discord"></i> Discord: /devops-support</div>
-                <div><i class="fas fa-phone-alt"></i> 1234567890</div>
-                <hr style="border-color: cyan;">
-                <h3>FAQs</h3>
-                <p><strong>How to join tournaments?</strong> - Register via ESPORTS page.</p>
-                <p><strong>Refund policy?</strong> - 14 days return on merchandise.</p>
-                <button class="btn" id="contactBtn"><i class="fas fa-comment"></i> CONTACT AGENT</button>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>support@devopsgaming.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-discord"></i>
+                    <span>Discord: /devops-support</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+91 12345 67890</span>
+                </div>
+                <hr class="support-divider">
+                <div class="faq-title"><i class="fas fa-question-circle"></i> FREQUENTLY ASKED QUESTIONS</div>
+                <div class="faq-item">
+                    <strong><i class="fas fa-gamepad"></i> How to join tournaments?</strong>
+                    <p>Register directly via the ESPORTS page. Select your preferred tournament and click the Register button. You'll receive a confirmation email within 24 hours.</p>
+                </div>
+                <div class="faq-item">
+                    <strong><i class="fas fa-undo-alt"></i> Refund policy?</strong>
+                    <p>14 days return policy on merchandise. Digital event tickets are non-refundable but can be transferred to another participant up to 7 days before the event.</p>
+                </div>
+                <button class="support-btn" id="contactBtn"><i class="fas fa-comment"></i> CONNECT WITH AGENT</button>
             </div>
         </div>
     </section>
 </div>
+
+<script>
+    (function() {
+        // Toast notification function
+        function showSupportToast(message) {
+            const existingToast = document.querySelector('.toast-notify-support');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast-notify-support';
+            toast.innerHTML = `<i class="fas fa-headset" style="margin-right: 10px; color: #00f2ff"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                if (toast && toast.remove) toast.remove();
+            }, 3500);
+        }
+        
+        // Contact button interaction
+        const contactBtn = document.getElementById('contactBtn');
+        if (contactBtn) {
+            contactBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showSupportToast('📞 Connecting you to a support agent... Please wait. Response within 2 minutes!');
+                
+                // Button ripple effect
+                this.style.transform = "scale(0.98)";
+                setTimeout(() => {
+                    if(this) this.style.transform = "";
+                }, 200);
+                
+                // Additional animation on the card
+                const card = document.querySelector('.support-card');
+                if (card) {
+                    card.style.transform = "scale(1.01)";
+                    setTimeout(() => {
+                        if(card) card.style.transform = "";
+                    }, 300);
+                }
+            });
+        }
+        
+        // Hover effect on FAQ items - additional color shift
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach((item, index) => {
+            item.addEventListener('mouseenter', () => {
+                item.style.borderLeftWidth = "4px";
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.borderLeftWidth = "3px";
+            });
+        });
+        
+        // Contact items click effect
+        const contactItems = document.querySelectorAll('.contact-item');
+        contactItems.forEach((item, idx) => {
+            item.addEventListener('click', () => {
+                const texts = ['Email copied!', 'Discord invite copied!', 'Phone number copied!'];
+                showSupportToast(`📋 ${texts[idx]} Check your clipboard.`);
+                
+                // Visual feedback
+                item.style.background = "rgba(0, 242, 255, 0.2)";
+                setTimeout(() => {
+                    item.style.background = "";
+                }, 300);
+            });
+        });
+        
+        console.log("🎧 Support Hub — Theme activated with rich animations!");
+    })();
+</script>
 
 <!-- MODAL -->
 <div class="modal" id="gameModal">
